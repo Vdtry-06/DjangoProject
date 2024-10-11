@@ -1,0 +1,36 @@
+
+.box-element .cart-row {
+    display: flex;
+    justify-content: center; 
+    margin: 20px 0;
+}
+
+.table {
+    margin: auto; 
+    width: 900px;
+    height: 90%;
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.quantity-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.quantity-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    border: 1px solid #dfdfdf;
+    border-radius: 7px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #333;
+    width: 100px;
+}

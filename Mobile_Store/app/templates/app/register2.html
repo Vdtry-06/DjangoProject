@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app/css/register.css' %}">
+    <title>Register</title>
+</head>
+<body>
+    <div class="parent-container">
+        <div class="container-checkout">
+            <div class="jumbotron">
+                <h1>Register Here!</h1>
+                <!-- Form starts here -->
+                <form enctype="multipart/form-data" method="POST" class="registerex needs-validation" novalidate="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <!-- First Name and Last Name -->
+                        <div class="flex-container">
+                            <!-- First Name -->
+                            <div class="flex-item">
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                                {{ form.first_name.errors }}
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="flex-item">
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
+                                {{ form.last_name.errors }}
+                            </div>
+                        </div>
+
+                        <!-- Username -->
+                        <div>
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                            {{ form.username.errors }}
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+
+                        <!-- Password and Password Confirm -->
+                        <div class="flex-container">
+                            <!-- Password1 -->
+                            <div class="flex-item">
+                                {{ form.password1.label_tag }}
+                                {{ form.password1 }}
+                                {{ form.password1.errors }}
+                            </div>
+
+                            <!-- Password2 -->
+                            <div class="flex-item">
+                                {{ form.password2.label_tag }}
+                                {{ form.password2 }}
+                                {{ form.password2.errors }}
+                            </div>
+                        </div>
+
+                        <!-- Non-field Errors -->
+                        <div>
+                            {{ form.non_field_errors }}
+                        </div>
+
+                        <!-- Nút Submit -->
+                        <div class="submit-container">
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% comment %} 
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container-checkout {
+  max-width: 600px; /* Giới hạn chiều rộng của container */
+  width: 100%;
+  background-color: #f8f9fa; /* Màu nền nhẹ */
+  padding: 20px;
+  border-radius: 8px; /* Bo góc cho container */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+}
+
+.jumbotron {
+display: flex; /* Sử dụng flexbox để căn giữa */
+flex-direction: column; /* Sắp xếp theo chiều dọc */
+align-items: center; /* Căn giữa các phần tử theo chiều ngang */
+max-width: 600px; /* Chiều rộng tối đa của khung chính */
+margin: 0 auto; /* Tự động căn giữa theo chiều ngang */
+padding: 20px; /* Khoảng cách bên trong */
+border: 1px solid #ccc; /* Đường viền cho khung */
+border-radius: 8px; /* Bo tròn các góc */
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+h1 {
+  margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between; /* Đặt khoảng cách đều giữa các cột */
+  margin-bottom: 15px; /* Khoảng cách giữa các nhóm trường */
+  gap: 20px;
+}
+
+.flex-item {
+  flex: 1; /* Mỗi cột chiếm không gian bằng nhau */
+  margin-right: 20px; /* Khoảng cách bên phải cho mỗi cột */
+}
+
+.flex-item:last-child {
+  margin-right: 0; /* Bỏ khoảng cách bên phải cho cột cuối cùng */
+}
+
+label {
+  display: block; /* Đảm bảo nhãn là khối, đứng riêng biệt */
+  margin-bottom: 5px; /* Khoảng cách giữa nhãn và input */
+  font-weight: bold; /* Làm cho nhãn đậm */
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 4px; /* Bo góc cho các trường nhập liệu */
+}
+
+
+input[type="submit"] {
+  width: 100%; /* Nút submit chiếm toàn bộ chiều rộng */
+  padding: 10px;
+  background-color: #007bff; /* Màu nền nút */
+  color: white; /* Màu chữ nút */
+  border: none;
+  border-radius: 4px; /* Bo góc cho nút */
+  cursor: pointer; /* Con trỏ tay khi hover */
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3; /* Màu nền khi hover */
+}
+
+.submit-container {
+  display: flex; /* Sử dụng flexbox */
+  justify-content: center; /* Căn giữa nút */
+  margin-top: 20px; /* Khoảng cách trên nút submit */
+}
+{% endcomment %}

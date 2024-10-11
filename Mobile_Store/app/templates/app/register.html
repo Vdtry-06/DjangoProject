@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% comment %}
+    <link rel="stylesheet" href="{% static 'app/css/register.css' %}" />
+    {% endcomment %}
+    <title>Document</title>
+  </head>
+  <body>
+    <h5>Register</h5>
+    <form method="POST" action="">
+      {% csrf_token %}
+      <div>
+        <div>
+            <div>
+                First Name: {{form.first_name}}
+            </div>
+            <div>
+                Last Name: {{form.last_name}}
+            </div>
+        </div>
+        <div>User Name: {{form.username}}</div>
+        <div>Email: {{form.email}}</div>
+        <div>
+          <div>Password: {{form.password1}}</div>
+          <div>Repeat Password: {{form.password2}}</div>
+        </div>
+        <input type="submit" name="Create User"/>
+        <p>You have a account ?</p><a href="{% url 'login' %}">Login</a>
+      </div>
+
+      
+    </form>
+  </body>
+</html>
