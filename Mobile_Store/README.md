@@ -10,3 +10,10 @@ py manage.py createsuperuser
 1. pip install django
 2. pip install pillow: de hien hinh anh
 3. py manage.py createsuperuser
+
+git status
+git add .
+git commit -m "...."
+git checkout name_branch
+git push origin name_branch
+git push -u origin name_branch nhánh chưa tồn tại

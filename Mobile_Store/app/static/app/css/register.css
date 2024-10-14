@@ -43,7 +43,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    gap: 20px; /* Thêm khoảng cách 20px giữa các phần tử trong hàng */
+    gap: 20px;
   }
   
   /* Các trường thông tin */
@@ -51,12 +51,12 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-    flex: 1; /* Đảm bảo các trường sẽ chia đều không gian trong hàng */
+    flex: 1;
   }
   
   /* Đặt chiều rộng cho nhãn để căn thẳng hàng */
   .form-field label {
-    width: 120px; /* Chiều rộng cố định cho nhãn */
+    width: 120px;
     margin-bottom: 5px;
     display: inline-block;
   }

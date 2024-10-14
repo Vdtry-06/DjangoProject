@@ -6,6 +6,22 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 import json
 # Create your views here.
+def category(request):
+    categories = Category.objects.filter(is_trademark = False)
+    active_category = request.GET.get('category', '')
+    trademark_name = request.GET.get('trademark', '')
+    if active_category:
+        products = Product.objects.filter(category__slug = active_category)
+    else:
+        products = Product.objects.all()
+    context = {
+        'categories': categories, 
+        'products': products, 
+        'active_category': active_category, 
+        'trademark_name': trademark_name
+    }
+    return render(request, 'app/category.html', context)
+    
 def search(request):
     if request.method == "POST":
         searched = request.POST["searched"]
@@ -16,9 +32,18 @@ def search(request):
         items = order.orderitem_set.all()
     else:
         items = []
-        order = {'get_cart_item': 0, 'get_cart_total': 0}
+        order = {
+            'get_cart_item': 0, 
+            'get_cart_total': 0
+        }
+    categories = Category.objects.filter(is_trademark = False)
     products = Product.objects.all()
-    return render(request, 'app/search.html', {"searched" : searched, "keys" : keys, "products": products})
+    return render(request, 'app/search.html', {
+        "categories" : categories,
+        "searched" : searched, 
+        "keys" : keys, 
+        "products": products
+    })
     
 def register(request):
     form = CreateUserForm()
@@ -57,9 +82,16 @@ def home(request):
         items = order.orderitem_set.all()
     else:
         items = []
-        order = {'get_cart_item': 0, 'get_cart_total': 0}
+        order = {
+            'get_cart_item': 0, 
+            'get_cart_total': 0
+        }
+    categories = Category.objects.filter(is_trademark = False)
     products = Product.objects.all()
-    context = {'products': products}
+    context = {
+        'categories': categories, 
+        'products': products
+    }
     return render(request, 'app/home.html', context)
 
 def cart(request):
@@ -69,8 +101,16 @@ def cart(request):
         items = order.orderitem_set.all()
     else:
         items = []
-        order = {'get_cart_item': 0, 'get_cart_total': 0}
-    context = {'items': items, 'order': order}
+        order = {
+            'get_cart_item': 0, 
+            'get_cart_total': 0
+        }
+    categories = Category.objects.filter(is_trademark = False)
+    context = {
+        'categories': categories,
+        'items': items, 
+        'order': order
+    }
     return render(request, 'app/cart.html', context)
 
 def checkout(request):
@@ -80,8 +120,16 @@ def checkout(request):
         items = order.orderitem_set.all()
     else:
         items = []
-        order = {'get_cart_item': 0, 'get_cart_total': 0}
-    context = {'items': items, 'order': order}
+        order = {
+            'get_cart_item': 0, 
+            'get_cart_total': 0
+        }
+    categories = Category.objects.filter(is_trademark = False)
+    context = {
+        'categories': categories,
+        'items': items, 
+        'order': order
+    }
     return render(request, 'app/checkout.html', context)
 
 def updateItem(request):
