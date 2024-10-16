@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm 
 
+import numpy as np
+import cv2
 # Create your models here.
-#Change forms register django
+
+# Change forms register django
 # category
 class Category(models.Model):
     trademark = models.ForeignKey('self', on_delete = models.CASCADE, related_name = 'trademarks', null = True, blank = True)
@@ -25,7 +28,7 @@ class Product(models.Model):
     price = models.FloatField()
     digital = models.BooleanField(default = False, null = True, blank = False)  
     image = models.ImageField(null = True, blank = True)
-    
+    image_features = models.BinaryField(null=True, blank=True)
     def __str__(self):
         return self.name
     @property
@@ -35,6 +38,27 @@ class Product(models.Model):
         except:
             url = ''
         return url
+    
+    def extract_features(self):
+        # Trích xuất đặc trưng từ ảnh và lưu vào trường image_features
+        if self.image:
+            # Kiểm tra nếu image tồn tại và có kích thước không
+            try:
+                image_data = self.image.read()
+                if image_data:
+                    img = cv2.imdecode(np.frombuffer(image_data, np.uint8), cv2.IMREAD_COLOR)
+                    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    sift = cv2.SIFT_create()
+                    keypoints, descriptors = sift.detectAndCompute(gray, None)
+                    if descriptors is not None:
+                        self.image_features = descriptors.tobytes()  # Chuyển thành chuỗi nhị phân để lưu
+            except Exception as e:
+                print(f"Error processing image for product {self.name}: {e}")
+    
+    def save(self, *args, **kwargs): # nhận các tham số không xác định
+        if self.image:
+            self.extract_features() # trích xuất hình ảnh được tải lên
+        super().save(*args, **kwargs) # lưu đối tượng vào cơ sở dữ liệu
     
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete = models.SET_NULL, null = True, blank = True)

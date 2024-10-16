@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %} {% load static %} {% block search_item %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-home">
+      <div class="row" style="width=100%;">
+        <h2 class="product-home">Item Image Search Results</h2>
+        {% if searched %}
+        <div class="search-result">
+          <p>{{ searched }}</p>
+        </div>
+        {% endif %} {% for product in keys %}
+        <div class="col-lg-3">
+          <div class="product-wrapper">
+            <img class="product-image" src="{{product.ImageURL}}" alt="" />
+            <div class="box-element product">
+              <br />
+              <h6><strong>{{product.name}}</strong></h6>
+              <hr />
+              <button
+                data-product="{{product.id}}"
+                data-action="add"
+                class="btn btn-outline-secondary add-btn update-cart"
+              >
+                Add to cart
+              </button>
+              <a class="btn btn-outline-success" href="#">View</a>
+              <h4 class="price" style="display: inline-block; float: right">
+                <strong>{{product.price | floatformat:2}}$</strong>
+              </h4>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <p>No products found.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock search_item %}
