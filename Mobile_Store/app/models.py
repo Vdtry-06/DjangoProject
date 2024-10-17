@@ -16,7 +16,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
-    
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
@@ -100,4 +99,4 @@ class ShippingAddress(models.Model):
     added_date = models.DateTimeField(auto_now_add = True)
     
     def __str__(self):
-        return self.address
+        return self.address if self.address else 'No address provided'

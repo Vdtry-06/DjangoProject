@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif; 
+    color: rgb(103, 169, 169);
+    background-color: rgb(234, 235, 236);
+}
+
+h1 {
+    text-align: center;
+    margin-top: -30px;
+}

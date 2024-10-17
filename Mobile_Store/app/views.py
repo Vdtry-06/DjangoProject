@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
+from django.utils import timezone
 from django.core.paginator import Paginator
 
 import json
@@ -23,7 +24,7 @@ def extract_features_from_image(image):
     if descriptors is None:  # Kiểm tra nếu không phát hiện được đặc trưng
         return None
     if descriptors.shape[0] > 1:  # Đảm bảo rằng kích thước là (1, 128)
-        descriptors = descriptors.mean(axis=0).reshape(1, -1)  # Nếu có nhiều đặc trưng, chỉ lấy trung bình
+        descriptors = descriptors.mean(axis = 0).reshape(1, -1)  # Nếu có nhiều đặc trưng, chỉ lấy trung bình
     return descriptors
 
 def image_search(request):
@@ -67,7 +68,7 @@ def image_search(request):
                                     continue  # Bỏ qua sản phẩm nếu kích thước không hợp lệ
 
                                 similarity = cosine_similarity(query_features, stored_features).mean()
-                                print(similarity)
+                                # print(similarity)
                                 if similarity > 0.5:  # Chỉ xem xét các sản phẩm có độ tương đồng > 0.5         
                                     similarities.append((similarity, product))
 
@@ -79,7 +80,7 @@ def image_search(request):
                         else:
                             searched = "Danh sách sản phẩm tương tự nhất đã được tìm thấy."
                 else:
-                    searched = "Không phát hiện được 'cellphone' trong ảnh tải lên."
+                    searched = "Không phát hiện được 'cell phone' trong ảnh tải lên."
 
     context = {
         'form': form,
@@ -218,9 +219,32 @@ def checkout(request):
     context = {
         'categories': categories,
         'items': items, 
-        'order': order
+        'order': order,
+        'customer': customer
     }
     return render(request, 'app/checkout.html', context)
+
+def endpage(request):
+    if request.method == "POST":
+        # Giả sử bạn đã nhận dữ liệu từ form
+        address = request.POST.get('address')
+        country = request.POST.get('country')
+        state = request.POST.get('state')
+        mobile = request.POST.get('zip')
+        order = Order.objects.get(customer=request.user, complete=False)
+        shipping_address = ShippingAddress(
+            customer = request.user,
+            order = order,
+            address = address,
+            Country = country,
+            State = state,
+            Mobile = mobile,
+        )
+        shipping_address.save()
+        order.complete = True
+        order.save()
+    context = {}
+    return render(request, 'app/endpage.html', context)
 
 def updateItem(request):
     data = json.loads(request.body)

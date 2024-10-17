@@ -72,8 +72,7 @@ Nhược điểm:
     4. Lọc theo ngưỡng có thể gây ra thiếu hiệu quả
     5. tốc độ giảm dần theo dữ liệu mặt hàng tăng
 
-do mới chỉ trích xuất đặc trưng và tìm độ tương đồng giữa góc của 2 vector tiến đến gần 1 thì sẽ tốt hơn.
-có nhiều trường hợp bị sai khi thử tìm kiếm người với mặt hàng thì nó xuất hiện kết quả. vì vậy thuật toán có sự sai sót nhất định nên phải sử dụng yolo để tối ưu hóa tìm kiếm bằng hình ảnh với trường hợp keyword không phải là cellphone thì sẽ không tìm thấy mặt hàng nào.
+Mặc dù trích xuất đặc trưng và tìm độ tương đồng giữa góc của 2 vector tiến đến gần 1 thì ảnh gần giống hơn nhưng có nhiều trường hợp bị sai khi thử tìm kiếm người với mặt hàng thì nó xuất hiện kết quả. vì vậy thuật toán có sự sai sót nhất định nên phải sử dụng yolo để tối ưu hóa tìm kiếm bằng hình ảnh với trường hợp keyword không phải là cellphone thì sẽ không tìm thấy mặt hàng nào.
 
 cách cài yolo.
 pip install torch torchvision torchaudio
