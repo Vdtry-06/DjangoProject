@@ -8,23 +8,22 @@ from django.core.paginator import Paginator
 
 import json
 
-
-import cv2
 import numpy as np
+import cv2
+from ultralytics import YOLO
 from sklearn.metrics.pairwise import cosine_similarity
 from .forms import ImageSearchForm
 # Create your views here.
 
 def extract_features_from_image(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Chuyển đổi ảnh gốc sang màu xám
+    sift = cv2.SIFT_create()  # Khởi tạo SIFT
+    keypoints, descriptors = sift.detectAndCompute(gray, None)  # Phát hiện các đặc trưng và tính toán mô tả
     
-    img = cv2.imdecode(np.frombuffer(image.read(), np.uint8), cv2.IMREAD_COLOR) # Đọc ảnh từ dữ liệu đã tải lên
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # Chuyển đổi ảnh sang màu xám
-    sift = cv2.SIFT_create() # Khởi tạo SURF
-    keypoints, descriptors = sift.detectAndCompute(gray, None) # Phát hiện các điểm đặc trưng và tính toán đặc trưng
-    if descriptors is None: # Kiểm tra nếu không có đặc trưng nào được phát hiện
+    if descriptors is None:  # Kiểm tra nếu không phát hiện được đặc trưng
         return None
-    if descriptors.shape[0] > 1: # Đảm bảo rằng kích thước là (1, 128)
-        descriptors = descriptors.mean(axis = 0).reshape(1, -1) # Nếu có nhiều đặc trưng, chỉ lấy đặc trưng đầu tiên (hoặc có thể tính toán trung bình)
+    if descriptors.shape[0] > 1:  # Đảm bảo rằng kích thước là (1, 128)
+        descriptors = descriptors.mean(axis=0).reshape(1, -1)  # Nếu có nhiều đặc trưng, chỉ lấy trung bình
     return descriptors
 
 def image_search(request):
@@ -34,32 +33,53 @@ def image_search(request):
     if request.method == 'POST':
         form = ImageSearchForm(request.POST, request.FILES)
         if form.is_valid():
-            image = form.cleaned_data['image'] # Trích xuất đặc trưng từ ảnh tải lên
-            query_features = extract_features_from_image(image)
-            if query_features is None:
-                searched = "No features detected in the uploaded image." # Không trích xuất được đặc trưng
+            image_file = form.cleaned_data['image']
+            # Đọc ảnh tải lên vào mảng NumPy
+            img = cv2.imdecode(np.frombuffer(image_file.read(), np.uint8), cv2.IMREAD_COLOR)
+            if img is None:
+                searched = "Định dạng ảnh không hợp lệ."
             else:
-                products = Product.objects.all()
-                similarities = []
-                
-                # Tính độ tương tự dựa trên cosine similarity
-                for product in products:
-                    if product.image_features:
-                        stored_features = np.frombuffer(product.image_features, dtype = np.float32).reshape(-1, 128)
-                        if stored_features.shape[1] != 128:
-                            continue  # Bỏ qua sản phẩm nếu kích thước không hợp lệ
+                check = False
+                model = YOLO('yolov8n.pt')
+                results = model(img)  # Truyền ảnh gốc vào mô hình
+                for result in results:
+                    result.show()
+                    class_names = result.names
+                    detected_objects = result.boxes.cls.tolist()
+                    detected_names = [class_names[int(idx)] for idx in detected_objects]
+                    # print("Tên các đối tượng phát hiện:", detected_names)
+                    if "cell phone" in detected_names:
+                        check = True
+                        break
 
-                        similarity = cosine_similarity(query_features, stored_features).mean()
-                        # if similarity > 0.5: # Chỉ lấy những sản phẩm có độ tương đồng lớn hơn 0.5
-                        similarities.append((similarity, product))
-                
-                similarities.sort(reverse = True, key = lambda x: x[0]) # Sắp xếp theo độ tương tự giảm dần
-                keys = [product for _, product in similarities[:8]]  # Lấy 8 sản phẩm tương tự nhất
+                if check:
+                    query_features = extract_features_from_image(img)  # Chuyển đổi sang màu xám và trích xuất các đặc trưng
+                    if query_features is None:
+                        searched = "Không phát hiện được đặc trưng nào trong ảnh tải lên."  # Không trích xuất được đặc trưng
+                    else:
+                        products = Product.objects.all()
+                        similarities = []
 
-                if not keys: # Kiểm tra nếu không tìm thấy sản phẩm nào
-                    searched = "not found"
+                        for product in products:
+                            if product.image_features:
+                                stored_features = np.frombuffer(product.image_features, dtype=np.float32).reshape(-1, 128)
+                                if stored_features.shape[1] != 128:
+                                    continue  # Bỏ qua sản phẩm nếu kích thước không hợp lệ
+
+                                similarity = cosine_similarity(query_features, stored_features).mean()
+                                print(similarity)
+                                if similarity > 0.5:  # Chỉ xem xét các sản phẩm có độ tương đồng > 0.5         
+                                    similarities.append((similarity, product))
+
+                        similarities.sort(reverse=True, key=lambda x: x[0])  # Sắp xếp theo độ tương đồng giảm dần
+                        keys = [product for _, product in similarities[:8]]  # Lấy 8 sản phẩm tương tự nhất
+
+                        if not keys:  # Kiểm tra nếu không tìm thấy sản phẩm nào tương tự
+                            searched = "không tìm thấy."
+                        else:
+                            searched = "Danh sách sản phẩm tương tự nhất đã được tìm thấy."
                 else:
-                    searched = "Top similar products above similarity."
+                    searched = "Không phát hiện được 'cellphone' trong ảnh tải lên."
 
     context = {
         'form': form,
@@ -67,7 +87,6 @@ def image_search(request):
         'searched': searched,
     }
     return render(request, 'app/image_search.html', context)
-
 
 def category(request):
     categories = Category.objects.filter(is_trademark = False)
@@ -153,7 +172,7 @@ def home(request):
     products = Product.objects.all().order_by('id')
 
     # Sử dụng Paginator để phân trang
-    paginator = Paginator(products, 20)  # Mỗi trang có 20 sản phẩm
+    paginator = Paginator(products, 20)  # Mỗi tranga có 20 sản phẩm
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 
