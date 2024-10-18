@@ -1,4 +1,9 @@
 {% extends 'app/base.html' %} {% load static %} {% block search_item %}
+<br />
+<br />
+<br />
+<br />
+<br />
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,7 +13,6 @@
   <body>
     <div class="container-home">
       <div class="row" style="width=100%;">
-        <h2 class="product-home">Item Image Search Results</h2>
         {% if searched %}
         <div class="search-result">
           <p>{{ searched }}</p>
@@ -28,6 +32,9 @@
               >
                 Add to cart
               </button>
+              <div class="notification" id="notification" style="display: none">
+                1 product added successfully!
+              </div>
               <a class="btn btn-outline-success" href="#">View</a>
               <h4 class="price" style="display: inline-block; float: right">
                 <strong>{{product.price | floatformat:2}}$</strong>
@@ -44,4 +51,5 @@
     </div>
   </body>
 </html>
+<script src="{% static 'app/js/home.js' %}"></script>
 {% endblock search_item %}

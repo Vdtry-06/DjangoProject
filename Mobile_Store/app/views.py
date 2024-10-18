@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 from .models import *
 from django.contrib.auth.forms import UserCreationForm 
-from django.contrib.auth import authenticate, login, logout 
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash 
 from django.contrib import messages
 from django.utils import timezone
 from django.core.paginator import Paginator
@@ -38,13 +38,13 @@ def image_search(request):
             # Đọc ảnh tải lên vào mảng NumPy
             img = cv2.imdecode(np.frombuffer(image_file.read(), np.uint8), cv2.IMREAD_COLOR)
             if img is None:
-                searched = "Định dạng ảnh không hợp lệ."
+                searched = "Invalid image format."
             else:
                 check = False
                 model = YOLO('yolov8n.pt')
                 results = model(img)  # Truyền ảnh gốc vào mô hình
                 for result in results:
-                    result.show()
+                    # result.show()
                     class_names = result.names
                     detected_objects = result.boxes.cls.tolist()
                     detected_names = [class_names[int(idx)] for idx in detected_objects]
@@ -56,7 +56,7 @@ def image_search(request):
                 if check:
                     query_features = extract_features_from_image(img)  # Chuyển đổi sang màu xám và trích xuất các đặc trưng
                     if query_features is None:
-                        searched = "Không phát hiện được đặc trưng nào trong ảnh tải lên."  # Không trích xuất được đặc trưng
+                        searched = "No features detected in uploaded image."  # Không trích xuất được đặc trưng
                     else:
                         products = Product.objects.all()
                         similarities = []
@@ -76,11 +76,11 @@ def image_search(request):
                         keys = [product for _, product in similarities[:8]]  # Lấy 8 sản phẩm tương tự nhất
 
                         if not keys:  # Kiểm tra nếu không tìm thấy sản phẩm nào tương tự
-                            searched = "không tìm thấy."
+                            searched = "not found"
                         else:
-                            searched = "Danh sách sản phẩm tương tự nhất đã được tìm thấy."
+                            searched = "List of most similar products found."
                 else:
-                    searched = "Không phát hiện được 'cell phone' trong ảnh tải lên."
+                    searched = "'Cell phone' not detected in uploaded image."
 
     context = {
         'form': form,
@@ -224,9 +224,37 @@ def checkout(request):
     }
     return render(request, 'app/checkout.html', context)
 
+def useraccount(request):
+    categories = Category.objects.all()
+    if request.method == "POST":
+        first_name = request.POST.get('first_name')
+        email = request.POST.get('email')
+        old_password = request.POST.get('old_password')
+        password = request.POST.get('password')
+        user = request.user
+        user.first_name = first_name
+        user.email = email
+        if old_password and user.check_password(old_password):
+            if password:
+                user.set_password(password)
+                update_session_auth_hash(request, user)
+            user.save()
+            messages.success(request, "Account information has been updated.")
+        else:
+            messages.error(request, "Current password is incorrect!")
+
+        return redirect('useraccount')
+    else:
+        customer = request.user
+
+    context = {
+        'customer': customer,
+        'categories': categories
+    }
+    return render(request, 'app/useraccount.html', context)
+
 def endpage(request):
     if request.method == "POST":
-        # Giả sử bạn đã nhận dữ liệu từ form
         address = request.POST.get('address')
         country = request.POST.get('country')
         state = request.POST.get('state')
@@ -245,6 +273,7 @@ def endpage(request):
         order.save()
     context = {}
     return render(request, 'app/endpage.html', context)
+
 
 def updateItem(request):
     data = json.loads(request.body)

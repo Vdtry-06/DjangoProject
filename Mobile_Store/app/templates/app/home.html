@@ -142,7 +142,8 @@
 {% endblock banner_slider %} {% block main-content %}
 <div class="container-home">
   <div class="row" style="width=100%;">
-    <h2 class="product-home">Products</h2>
+    <h2 id="products" class="product-home">Products</h2>
+    <hr />
     {% for product in products %}
     <div class="col-lg-3">
       <div class="product-wrapper">
@@ -158,6 +159,7 @@
           >
             Add to cart
           </button>
+          <div class="notification" id="notification" style="display: none;">1 product added successfully!</div>
           <a class="btn btn-outline-success" href="#">View</a>
           <h4 class="price" style="display: inline-block; float: right">
             <strong>{{product.price | floatformat:2}}$</strong>

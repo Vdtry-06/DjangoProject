@@ -294,23 +294,6 @@
                             </button>
                           </form>
                         </li>
-                        <li class="pe-3">
-                          <a href="#">
-                            <img
-                              src="{% static 'app/images/user-cart.png' %}"
-                              alt=""
-                              style="margin-top: 7px;"
-                            />
-                          </a>
-                        </li>
-                        <li>
-                          <a href="{% url 'cart' %}"
-                            ><img
-                              src="{% static 'app/images/shopping-cart.png' %}"
-                              alt=""
-                              style="margin-top: 6px;"
-                          /></a>
-                        </li>
                       </ul>
                     </div>
                   </li>
@@ -318,45 +301,15 @@
                     <a class="nav-link me-4 active" href="{% url 'home' %}"
                       >Home</a
                     >
-                  </li>
+                  </li> 
                   {% if request.resolver_match.url_name == "home" %}
                     <li class="nav-item">
-                      <a class="nav-link me-4" href="#company-services"
+                      <a class="nav-link me-4" href="#products"
                         >Products</a
                       >
                     </li>
                   {% endif %}
-                  {% if user.is_authenticated %}
-                    {% if user.is_superuser %}
-                      <li class="nav-item">
-                        <a class="nav-link me-4" href="{% url 'admin:index' %}"
-                          >Admin</a
-                        >
-                      </li>
-                    {% endif %}
-                    <li class="nav-item">
-                      <a class="nav-link me-4" href="{% url 'logout' %}"
-                        >Logout</a
-                      >
-                    </li>
-                    
-                    
-                  {% else %}
-                  <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'admin:index' %}"
-                      >Admin</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'login' %}">Login</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'register' %}"
-                      >Register</a
-                    >
-                  </li>
-                  {% endif %}
-                  <li class="nav-item dropdown">
+                  <li class="nav-item dropdown" style="margin-right: 20px;">
                     <a
                       class="nav-link dropdown-toggle"
                       data-bs-toggle="dropdown"
@@ -377,6 +330,84 @@
                       {% endfor %}
                     </ul>
                   </li>
+                 
+                  {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link me-4" href="{% url 'admin:index' %}"
+                        >Admin</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link me-4" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link me-4" href="{% url 'register' %}"
+                        >Register</a
+                      >
+                    </li>
+                  {% elif user.is_authenticated  and not user.is_superuser%}
+                    <li class="nav-item dropdown">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        role="button"
+                        aria-expanded="false"
+                        ><img
+                        src="{% static 'app/images/user-cart.png' %}"
+                        alt=""
+                        style="margin-top: 0px;"
+                      /></a
+                      >
+                      <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href= "{% url 'useraccount' %}">Account</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'cart' %}"
+                            class="dropdown-item"
+                            >Cart
+                            <img
+                              src="{% static 'app/images/shopping-cart.png' %}"
+                              alt=""
+                          />
+                        </a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 10px;">
+                          <a class="nav-link me-4" href="{% url 'logout' %}"
+                            >Logout</a
+                          >
+                        </li>
+                      </ul>
+                  </li>
+                  {% elif user.is_superuser %}
+                    <li class="nav-item dropdown">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        role="button"
+                        aria-expanded="false"
+                        ><img
+                        src="{% static 'app/images/user-cart.png' %}"
+                        alt=""
+                        style="margin-top: 7px;"
+                      /></a
+                      >
+                      <ul class="dropdown-menu">
+                        <li class="nav-item">
+                          <a class="nav-link me-4" href="{% url 'admin:index' %}"
+                            >Admin</a
+                          >
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link me-4" href="{% url 'logout' %}"
+                            >Logout</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  {% endif %}
                 </ul>
               </div>
             </div>
@@ -424,6 +455,8 @@
           {% block main-content%} {% endblock main-content %}
           <!-- cart interface-->
           {% block cart_content %} {% endblock cart_content %}
+          <!-- user account -->
+          {% block user_account %} {% endblock user_account %}
           <!-- checkout interface-->
           {% block content_checkout %} {% endblock content_checkout %}
           <!-- search -->

@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="{% static 'app/css/endpage.css' %}">
 </head>
 <body>
-    <h1>Thank you for purchasing our products!</h1>
+    <div style="text-align: center;">
+        <h1>Thank you for purchasing our products!</h1>
+        <h2>Product Review</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="feedback" placeholder="Feedback" required><br>
+            <button onclick="event.preventDefault(); window.location.href='{% url 'home' %}';">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
