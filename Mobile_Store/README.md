@@ -17,3 +17,5 @@ git commit -m "...."
 git checkout name_branch
 git push origin name_branch
 git push -u origin name_branch nhánh chưa tồn tại
+
+C:\Users\Dell\AppData\Local\Programs\Python\Python312\python.exe manage.py runserver
