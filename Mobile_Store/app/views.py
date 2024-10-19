@@ -81,8 +81,9 @@ def image_search(request):
                             searched = "List of most similar products found."
                 else:
                     searched = "'Cell phone' not detected in uploaded image."
-
+    categories = Category.objects.filter(is_trademark = False)
     context = {
+        "categories" : categories,
         'form': form,
         'keys': keys,
         'searched': searched,
