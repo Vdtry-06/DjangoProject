@@ -6,7 +6,8 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib import messages
 from django.utils import timezone
 from django.core.paginator import Paginator
-
+from django.core.mail import send_mail
+from django.conf import settings
 import json
 
 import numpy as np
@@ -159,7 +160,7 @@ def logoutPage(request):
     logout(request)
     return redirect("home")
 
-def home(request):
+def home(request, sort_type=None, sort_order='increase'):
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete = False)
@@ -172,9 +173,17 @@ def home(request):
         }
     categories = Category.objects.filter(is_trademark = False)
     products = Product.objects.all().order_by('id')
-
+    
+    if sort_type == 'name':
+        products = products.order_by('name')
+    elif sort_type == 'price':
+        if sort_order == 'increase':
+            products = products.order_by('price')
+        elif sort_order == 'decrease':
+            products = products.order_by('-price')
+        
     # Sử dụng Paginator để phân trang
-    paginator = Paginator(products, 20)  # Mỗi tranga có 20 sản phẩm
+    paginator = Paginator(products, 20)  # Mỗi trang có 20 sản phẩm
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 
@@ -210,6 +219,7 @@ def checkout(request):
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete = False)
         items = order.orderitem_set.all()
+        
     else:
         items = []
         order = {
@@ -225,6 +235,50 @@ def checkout(request):
     }
     return render(request, 'app/checkout.html', context)
 
+def endpage(request):
+    if request.method == "POST":
+        try:
+            order = Order.objects.get(customer = request.user, complete = False)
+            address = request.POST.get('address')
+            country = request.POST.get('country')
+            state = request.POST.get('state')
+            mobile = request.POST.get('zip')
+            print(f"Address: {address}, Country: {country}, State: {state}, Mobile: {mobile}")
+            existing_shipping_address = ShippingAddress.objects.filter(order=order).first()
+            if not existing_shipping_address:
+                shipping_address = ShippingAddress(
+                    customer = request.user,
+                    order = order,
+                    address = address,
+                    Country = country,
+                    State = state,
+                    Mobile = mobile, 
+                )
+                shipping_address.save()
+        # order.complete = True
+            feedback_text = request.POST.get('feedback')
+            if not feedback_text:
+                error = "Feedback cannot be empty."
+                return render(request, 'app/endpage.html', {'error': error})
+
+            feedback = Feedback(
+                user=request.user,
+                order=order,
+                feedback_text=feedback_text
+            )
+            feedback.save()
+        
+            order.complete = True
+            order.save()
+            return redirect('/')
+        
+        except Order.DoesNotExist:
+            error = "No incomplete order found for this user."
+            return render(request, 'app/endpage.html', {'error': error})
+        
+    context = {}
+    return render(request, 'app/endpage.html', context)
+    
 def useraccount(request):
     categories = Category.objects.all()
     if request.method == "POST":
@@ -254,46 +308,26 @@ def useraccount(request):
     }
     return render(request, 'app/useraccount.html', context)
 
-def endpage(request):
-    if request.method == "POST":
-        address = request.POST.get('address')
-        country = request.POST.get('country')
-        state = request.POST.get('state')
-        mobile = request.POST.get('zip')
-        order = Order.objects.get(customer=request.user, complete=False)
-        shipping_address = ShippingAddress(
-            customer = request.user,
-            order = order,
-            address = address,
-            Country = country,
-            State = state,
-            Mobile = mobile,
-        )
-        shipping_address.save()
-        order.complete = True
-        order.save()
-    context = {}
-    return render(request, 'app/endpage.html', context)
-
-
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
     customer = request.user
-    product = Product.objects.get(id = productId)
-    order, created = Order.objects.get_or_create(customer = customer, complete = False)
-    orderItem, created = OrderItem.objects.get_or_create(order = order, product = product)
+    if customer.is_authenticated:
+        product = Product.objects.get(id = productId)
+        order, created = Order.objects.get_or_create(customer = customer, complete = False)
+        orderItem, created = OrderItem.objects.get_or_create(order = order, product = product)
     
-    if action == 'add':
-        orderItem.quantity += 1
+        if action == 'add':
+            orderItem.quantity += 1
+            
+        elif action == 'remove':
+            orderItem.quantity -= 1
+            
+        orderItem.save()
         
-    elif action == 'remove':
-        orderItem.quantity -= 1
-        
-    orderItem.save()
-    
-    if orderItem.quantity <= 0:
-        orderItem.delete()
-    
-    return JsonResponse('added', safe = False)
+        if orderItem.quantity <= 0:
+            orderItem.delete()
+        return JsonResponse('Item updated', safe = False)
+    else:
+        return JsonResponse('added', safe = False)

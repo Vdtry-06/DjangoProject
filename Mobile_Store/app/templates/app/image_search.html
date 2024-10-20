@@ -32,9 +32,11 @@
               >
                 Add to cart
               </button>
+              {% if user.is_authenticated %}
               <div class="notification" id="notification" style="display: none">
                 1 product added successfully!
               </div>
+              {% endif %}
               <a class="btn btn-outline-success" href="#">View</a>
               <h4 class="price" style="display: inline-block; float: right">
                 <strong>{{product.price | floatformat:2}}$</strong>

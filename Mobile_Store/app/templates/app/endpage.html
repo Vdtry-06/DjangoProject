@@ -10,11 +10,13 @@
 <body>
     <div style="text-align: center;">
         <h1>Thank you for purchasing our products!</h1>
-        <h2>Product Review</h2>
-        <form method="POST">
+        <h2>Service Review</h2>
+        <form method="POST" action="{% url 'endpage' %}">
             {% csrf_token %}
-            <input type="text" name="feedback" placeholder="Feedback" required><br>
-            <button onclick="event.preventDefault(); window.location.href='{% url 'home' %}';">Submit</button>
+            <div class="form-group">
+                <textarea type="text" class="form-control" id="feedback" name="feedback" rows="3" placeholder="Your feedback..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </body>

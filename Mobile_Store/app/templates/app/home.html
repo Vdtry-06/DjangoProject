@@ -141,8 +141,46 @@
 </section>
 {% endblock banner_slider %} {% block main-content %}
 <div class="container-home">
-  <div class="row" style="width=100%;">
-    <h2 id="products" class="product-home">Products</h2>
+  <div class="row" style="width: 100%;">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 id="products" class="product-home">Products
+        <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Sort
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'home' 'name' 'increase' %}">Items</a></li>
+          <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Price</a>
+              <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'home' 'price' 'increase' %}">Increase</a></li>
+                  <li><a class="dropdown-item" href="{% url 'home' 'price' 'decrease' %}">Decrease</a></li>
+              </ul>
+          </li>
+      </ul>
+      </div>
+    </div>
+    <script>document.addEventListener('DOMContentLoaded', function () {
+      var dropdownSubmenus = document.querySelectorAll('.dropdown-submenu');
+    
+      dropdownSubmenus.forEach(function (submenu) {
+        submenu.addEventListener('mouseover', function () {
+          var dropdownMenu = submenu.querySelector('.dropdown-menu');
+          if (dropdownMenu) {
+            dropdownMenu.classList.add('show');
+          }
+        });
+    
+        submenu.addEventListener('mouseout', function () {
+          var dropdownMenu = submenu.querySelector('.dropdown-menu');
+          if (dropdownMenu) {
+            dropdownMenu.classList.remove('show');
+          }
+        });
+      });
+    });</script>
+  </h2>
+      
     <hr />
     {% for product in products %}
     <div class="col-lg-3">
@@ -159,7 +197,9 @@
           >
             Add to cart
           </button>
-          <div class="notification" id="notification" style="display: none;">1 product added successfully!</div>
+          {% if user.is_authenticated %}
+            <div class="notification" id="notification" style="display: none;">1 product added successfully!</div>
+          {% endif %}
           <a class="btn btn-outline-success" href="#">View</a>
           <h4 class="price" style="display: inline-block; float: right">
             <strong>{{product.price | floatformat:2}}$</strong>

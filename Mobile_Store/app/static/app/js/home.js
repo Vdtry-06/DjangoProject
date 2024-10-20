@@ -43,3 +43,4 @@ window.addEventListener('load', function() {
       }, 1000); // 2000ms = 3 giây
   }
 });
+
