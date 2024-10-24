@@ -86,7 +86,10 @@ class OrderItem(models.Model):
     
     @property
     def get_total(self):
-        total = self.product.price * self.quantity
+        if self.product is not None:
+            total = self.product.price * self.quantity
+        else:
+            total = 0
         return total
     
 class ShippingAddress(models.Model):

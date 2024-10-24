@@ -185,11 +185,14 @@
     {% for product in products %}
     <div class="col-lg-3">
       <div class="product-wrapper">
-        <img class="product-image" src="{{product.ImageURL}}" alt="" />
+        <div class="image-frame">
+          <img class="product-image" src="{{product.ImageURL}}" style="transform: scale(0.85);" alt="" />
+        </div>
+       
         <div class="box-element product">
           <br />
           <h6><strong>{{product.name}}</strong></h6>
-          <hr />
+          {% comment %} <hr /> {% endcomment %}
           <button
             data-product="{{product.id}}"
             data-action="add"
@@ -202,7 +205,8 @@
           {% endif %}
           <a class="btn btn-outline-success" href="#">View</a>
           <h4 class="price" style="display: inline-block; float: right">
-            <strong>{{product.price | floatformat:2}}$</strong>
+            {% comment %} <button type="button" class="btn btn-info"></button> {% endcomment %}
+            <strong class="btn btn-outline-primary" style="font-size: 16px; margin-top: -5px;">{{product.price | floatformat:2}}$</strong>
           </h4>
         </div>
       </div>

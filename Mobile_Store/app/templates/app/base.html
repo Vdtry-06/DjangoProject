@@ -469,7 +469,7 @@
           {% block trademark %} {% endblock trademark %} 
 
           {% if request.resolver_match.url_name == "home" %}
-            <div class="grid__column-10">
+            <div class="grid__column-10" style="margin-top: -100px; margin-bottom: 100px;">
               <ul class="pagination home-product__pagination">
                   <!-- Nút "<" sẽ bị vô hiệu hóa nếu đang ở trang đầu tiên -->
                   <li class="pagination-item {% if not products.has_previous %}disabled{% endif %}">
@@ -503,112 +503,6 @@
         </main>
         <!-- footer -->
         <footer id="footer" class="overflow-hidden">
-          <section
-            id="yearly-sale"
-            class="bg-light-blue overflow-hidden mt-5 padding-xlarge"
-            style="
-              background-image: url('{% static 'app/images/single-image1.png' %}');
-              background-position: right;
-              background-repeat: no-repeat;
-            "
-          >
-            <div class="row d-flex flex-wrap align-items-center">
-              <div class="col-md-6 col-sm-12">
-                <div class="text-content offset-4 padding-medium">
-                  <h3>10% off</h3>
-                  <h2 class="display-2 pb-5 text-uppercase text-dark">
-                    New year sale
-                  </h2>
-                  <a
-                    href="shop.html"
-                    class="btn btn-medium btn-dark text-uppercase btn-rounded-none"
-                    >Shop Sale</a
-                  >
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12"></div>
-            </div>
-          </section>
-          <section id="latest-blog" class="padding-large">
-            <div class="container">
-              <div class="row">
-                <div class="display-header d-flex justify-content-between pb-3">
-                  <h2 class="display-7 text-dark text-uppercase">
-                    Latest Posts
-                  </h2>
-                  <div class="btn-right">
-                    <a
-                      href="blog.html"
-                      class="btn btn-medium btn-normal text-uppercase"
-                      >Read Blog</a
-                    >
-                  </div>
-                </div>
-                <div class="post-grid d-flex flex-wrap justify-content-between">
-                  <div class="col-lg-4 col-sm-12">
-                    <div class="card border-none me-3">
-                      <div class="card-image">
-                        <img
-                          src="{% static 'app/images/post-item1.jpg' %}"
-                          alt=""
-                          class="img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div class="card-body text-uppercase">
-                      <div class="card-meta text-muted">
-                        <span class="meta-date">feb 22, 2023</span>
-                        <span class="meta-category">- Gadgets</span>
-                      </div>
-                      <h3 class="card-title">
-                        <a href="#">Get some cool gadgets in 2023</a>
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-12">
-                    <div class="card border-none me-3">
-                      <div class="card-image">
-                        <img
-                          src="{% static 'app/images/post-item2.jpg' %}"
-                          alt=""
-                          class="img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div class="card-body text-uppercase">
-                      <div class="card-meta text-muted">
-                        <span class="meta-date">feb 25, 2023</span>
-                        <span class="meta-category">- Technology</span>
-                      </div>
-                      <h3 class="card-title">
-                        <a href="#">Technology Hack You Won't Get</a>
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-sm-12">
-                    <div class="card border-none me-3">
-                      <div class="card-image">
-                        <img
-                          src="{% static 'app/images/post-item3.jpg' %}"
-                          alt=""
-                          class="img-fluid"
-                        />
-                      </div>
-                    </div>
-                    <div class="card-body text-uppercase">
-                      <div class="card-meta text-muted">
-                        <span class="meta-date">feb 22, 2023</span>
-                        <span class="meta-category">- Camera</span>
-                      </div>
-                      <h3 class="card-title">
-                        <a href="#">Top 10 Small Camera In The World</a>
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
           <section id="testimonials" class="position-relative">
             <div class="container">
               <div class="row">
@@ -711,50 +605,59 @@
             </div>
             <div class="swiper-pagination"></div>
           </section>
-          <section
-            id="subscribe"
-            class="container-grid padding-large position-relative overflow-hidden"
-          >
-            <div class="container">
-              <div class="row">
-                <div
-                  class="subscribe-content bg-dark d-flex flex-wrap justify-content-center align-items-center padding-medium"
-                >
-                  <div class="col-md-6 col-sm-12">
-                    <div class="display-header pe-3">
-                      <h2 class="display-7 text-uppercase text-light">
-                        Subscribe Us Now
-                      </h2>
-                      <p>
-                        Get latest news, updates and deals directly mailed to
-                        your inbox.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-md-5 col-sm-12">
-                    <form class="subscription-form validate">
-                      <div class="input-group flex-wrap">
-                        <input
-                          class="form-control btn-rounded-none"
-                          type="email"
-                          name="EMAIL"
-                          placeholder="Your email address here"
-                          required=""
-                        />
-                        <button
-                          class="btn btn-medium btn-primary text-uppercase btn-rounded-none"
-                          type="submit"
-                          name="subscribe"
-                        >
-                          Subscribe
-                        </button>
+          {% if not user.is_authenticated %}
+            <section
+              id="subscribe"
+              class="container-grid padding-large position-relative overflow-hidden"
+            >
+              <div class="container">
+                <div class="row">
+                  <div
+                    class="subscribe-content bg-dark d-flex flex-wrap justify-content-center align-items-center padding-medium"
+                  >
+                    <div class="col-md-6 col-sm-12">
+                      <div class="display-header pe-3">
+                        <h2 class="display-7 text-uppercase text-light">
+                          Subscribe Us Now
+                        </h2>
+                        <p>
+                          Get latest news, updates and deals directly mailed to
+                          your inbox.
+                        </p>
                       </div>
-                    </form>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                      <form class="subscription-form validate">
+                        <div class="input-group flex-wrap">
+                          <input
+                            class="form-control btn-rounded-none"
+                            type="email"
+                            name="EMAIL"
+                            placeholder="Your email address here"
+                            id="email"
+                            required=""
+                          />
+                          <button
+                            class="btn btn-medium btn-primary text-uppercase btn-rounded-none"
+                            type="button"
+                            name="subscribe"
+                            onclick="window.location.href='{% url 'register' %}'"
+                          >
+                            Subscribe
+                          </button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+            {% else %}
+            <br />
+            <br />
+            <br />
+            <br />
+            {% endif %}
           <section
             id="instagram"
             class="padding-large overflow-hidden no-padding-top"

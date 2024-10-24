@@ -45,7 +45,7 @@ def image_search(request):
                 model = YOLO('yolov8n.pt')
                 results = model(img)  # Truyền ảnh gốc vào mô hình
                 for result in results:
-                    # result.show()
+                    result.show()
                     class_names = result.names
                     detected_objects = result.boxes.cls.tolist()
                     detected_names = [class_names[int(idx)] for idx in detected_objects]
@@ -106,11 +106,11 @@ def category(request):
         'trademark_name': trademark_name
     }
     return render(request, 'app/category.html', context)
-    
+
 def search(request):
     if request.method == "POST":
         searched = request.POST["searched"]
-        keys = Product.objects.filter(name__contains = searched)
+        keys = Product.objects.filter(name__icontains = searched)
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete = False)

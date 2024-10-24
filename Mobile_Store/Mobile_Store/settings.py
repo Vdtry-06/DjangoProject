@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # EMAIL_PORT = 587  # Cổng SMTP
 # EMAIL_USE_TLS = True  # Sử dụng TLS
 # EMAIL_HOST_USER = 'bestmobilestore24@gmail.com'
-# EMAIL_HOST_PASSWORD = '******'
+# EMAIL_HOST_PASSWORD = '***********'
 # DEFAULT_FROM_EMAIL = 'bestmobilestore24@gmail.com'
 
 # Internationalization

@@ -55,7 +55,7 @@
               <td>{{item.product.name}}</td>
               <td class="price">{{item.product.price | floatformat:2}}$</td>
               <td>
-                <div class="quantity-container">
+                <div class="quantity-container" style="margin-left: 130px;">
                   <button data-product = {{item.product.id}} data-action = 'remove'
                     class="btn btn-outline-secondary small-btn update-cart"
                     onclick="decrementQuantity(this)"
