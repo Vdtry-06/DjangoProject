@@ -4,7 +4,7 @@ python -m django startapp app
 py manage.py migrate
 py manage.py runserver
 py manage.py collectstatic : chay lai du an
-py manage.py makemigrations: them cai gi do vao
+py manage.py makemigrations: them cai gi do vao model
 py manage.py migrate : hoan thanh cau hinh trang web
 py manage.py createsuperuser
 1. pip install django
@@ -77,3 +77,7 @@ Mặc dù trích xuất đặc trưng và tìm độ tương đồng giữa góc
 cách cài yolo.
 pip install torch torchvision torchaudio
 pip install ultralytics
+
+cài database:
+    pip install psycopg2
+    pip freeze > requirements.txt
