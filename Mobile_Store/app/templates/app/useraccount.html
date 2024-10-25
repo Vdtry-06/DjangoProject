@@ -4,7 +4,10 @@
   <div class="container-account">
     <div class="form-wrapper-account">
       <form action="{% url 'useraccount' %}" method="POST">
-        {% csrf_token %}
+        {% csrf_token %} 
+        <img src="{% static 'app/images/user3.png' %}" alt="" style="margin-top: -100px;">
+        <br />
+        <br />
         <div class="form-group-account text-center">
           <p class="padding-account">Username: {{ customer.username }}</p>
         </div>

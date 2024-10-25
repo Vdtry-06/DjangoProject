@@ -336,11 +336,6 @@
                   </li>
                  
                   {% if not user.is_authenticated %}
-                    {% comment %} <li class="nav-item">
-                      <a class="nav-link me-4" href="{% url 'admin:index' %}"
-                        >Admin</a
-                      >
-                    </li> {% endcomment %}
                     <li class="nav-item">
                       <a class="nav-link me-4" href="{% url 'login' %}">Login</a>
                     </li>
@@ -358,9 +353,9 @@
                         role="button"
                         aria-expanded="false"
                         ><img
-                        src="{% static 'app/images/user-cart.png' %}"
+                        src="{% static 'app/images/user (2).png' %}"
                         alt=""
-                        style="margin-top: -3px;"
+                        style="margin-top: -3px; width: 25px; height: 25px;"
                       /></a
                       >
                       <ul class="dropdown-menu">
@@ -393,9 +388,9 @@
                         role="button"
                         aria-expanded="false"
                         ><img
-                        src="{% static 'app/images/user-cart.png' %}"
+                        src="{% static 'app/images/protection.png' %}"
                         alt=""
-                        style="margin-top: -3px;"
+                        style="margin-top: -3px; width: 25px; height: 25px;"
                       /></a
                       >
                       <ul class="dropdown-menu">
@@ -465,11 +460,13 @@
           {% block content_checkout %} {% endblock content_checkout %}
           <!-- search -->
           {% block search_item %} {% endblock search_item %}
+          <!-- detail -->
+          {% block detail_item %} {% endblock detail_item %}
           <!-- category -->
           {% block trademark %} {% endblock trademark %} 
 
           {% if request.resolver_match.url_name == "home" %}
-            <div class="grid__column-10" style="margin-top: -100px; margin-bottom: 100px;">
+            <div class="grid__column-10" style="margin-bottom: 75px; margin-top: -30px;">
               <ul class="pagination home-product__pagination">
                   <!-- Nút "<" sẽ bị vô hiệu hóa nếu đang ở trang đầu tiên -->
                   <li class="pagination-item {% if not products.has_previous %}disabled{% endif %}">
@@ -779,7 +776,7 @@
                       <img
                         src="{% static 'app/images/logo-image.png' %}"
                         alt="logo"
-                        style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; transform: scale(1.5);"
+                        style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; transform: scale(1.5); margin-bottom: 5px;"
                       />
                       <p>
                         “Any fool can set up a website. :vvv” Patricia Briggs

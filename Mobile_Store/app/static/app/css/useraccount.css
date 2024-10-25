@@ -1,5 +1,6 @@
 /* Định kiểu để căn giữa form */
 .container-account {
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,7 +8,7 @@
 }
 
 .form-wrapper-account {
-  height: 400px;
+  height: 450px;
   width: 50%;
   max-width: 500px;
   background-color: #f8f9fa;

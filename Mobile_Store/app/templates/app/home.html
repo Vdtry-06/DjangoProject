@@ -143,11 +143,12 @@
 <div class="container-home">
   <div class="row" style="width: 100%;">
     <div class="d-flex justify-content-between align-items-center">
-      <h2 id="products" class="product-home">Products
+      
         <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Sort
-        </button>
+          <h2 id="products" class="product-home" style="margin-left: -10px;"> Products
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort
+          </button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="{% url 'home' 'name' 'increase' %}">Items</a></li>
           <li class="dropdown-submenu">
@@ -189,7 +190,7 @@
           <img class="product-image" src="{{product.ImageURL}}" style="transform: scale(0.85);" alt="" />
         </div>
        
-        <div class="box-element product">
+        <div class="box-element product" style="margin-top: 35px;">
           <br />
           <h6><strong>{{product.name}}</strong></h6>
           {% comment %} <hr /> {% endcomment %}

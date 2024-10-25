@@ -11,7 +11,7 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="container-home">
+    <div class="container-home" style="margin-bottom: 150px;">
       <div class="row" style="width=100%;">
         {% if searched %}
         <div class="search-result">
@@ -50,6 +50,14 @@
         </div>
         {% endfor %}
       </div>
+    </div>
+    <div class="change-template" style="margin-left: 595px; margin-bottom: 100px;">
+      <a class="btn btn-outline-dark" href="{% url 'home' %}"
+        >&#x2190; Comeback Home</a
+      >
+      <a class="btn btn-outline-dark" href="{% url 'cart' %}"
+        > Come to Cart &#x2192;</a
+      >
     </div>
   </body>
 </html>

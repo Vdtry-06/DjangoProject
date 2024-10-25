@@ -1,4 +1,9 @@
 /* products */
+.detail-branch {
+  justify-content: center;
+  align-items: center;
+  
+}
 .container-home {
   display: flex;
   justify-content: center;
@@ -19,7 +24,10 @@
   max-width: 90%;
   width: 90%;
 }
-
+.change-template {
+  justify-content: center;
+  align-items: center;
+}
 .product-wrapper {
   border: 2px solid #eaeaea;
   border-radius: 10px;
@@ -28,7 +36,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: #bdbca8;
+  background-color: #72b8c689;
+  height: 400px;
 }
 .image-frame {
   border: 2px solid #ffffff;

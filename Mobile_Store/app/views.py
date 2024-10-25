@@ -199,7 +199,7 @@ def cart(request):
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete = False)
-        items = order.orderitem_set.all()
+        items = OrderItem.objects.filter(order=order).order_by('id')
     else:
         items = []
         order = {
@@ -323,11 +323,15 @@ def updateItem(request):
             
         elif action == 'remove':
             orderItem.quantity -= 1
-            
+        print("id address:", productId)
         orderItem.save()
-        
         if orderItem.quantity <= 0:
             orderItem.delete()
         return JsonResponse('Item updated', safe = False)
     else:
         return JsonResponse('added', safe = False)
+    
+def detail(request):
+    context = {
+    }
+    return render(request, 'app/detail.html', context)
