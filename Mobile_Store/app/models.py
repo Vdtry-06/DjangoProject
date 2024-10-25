@@ -27,6 +27,21 @@ class Product(models.Model):
     price = models.FloatField()
     image = models.ImageField(null = True, blank = True)
     image_features = models.BinaryField(null=True, blank=True)
+    operating_system = models.CharField(max_length=50, blank=True, null=True)
+    graphics_chip = models.CharField(max_length=50, blank=True, null=True)
+    cpu_speed = models.CharField(max_length=100, blank=True, null=True)
+    ram = models.CharField(max_length=10, blank=True, null=True)
+    color = models.CharField(max_length=20, blank=True, null=True)
+    MEMORY_CHOICES = [
+        ('32GB', '32 GB'),
+        ('64GB', '64 GB'),
+        ('128GB', '128 GB'),
+        ('256GB', '256 GB'),
+        ('512GB', '512 GB'),
+        ('1TB', '1 TB'),
+    ]
+    memory = models.CharField(max_length = 5, choices = MEMORY_CHOICES, default = '64GB')
+    
     def __str__(self):
         return self.name
     @property

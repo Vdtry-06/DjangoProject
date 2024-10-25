@@ -332,6 +332,23 @@ def updateItem(request):
         return JsonResponse('added', safe = False)
     
 def detail(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer = customer, complete = False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+        order = {
+            'get_cart_item': 0, 
+            'get_cart_total': 0
+        }
+    id = request.GET.get('id', '')
+    products = Product.objects.filter(id = id)
+    categories = Category.objects.filter(is_trademark = False)
     context = {
+        'products': products,
+        'categories': categories,
+        'items': items, 
+        'order': order
     }
     return render(request, 'app/detail.html', context)
