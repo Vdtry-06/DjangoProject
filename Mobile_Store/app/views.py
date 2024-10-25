@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect
+from django.shortcuts import render, get_object_or_404
+
 from django.http import HttpResponse, JsonResponse
 from .models import *
 from django.contrib.auth.forms import UserCreationForm 
@@ -27,20 +29,27 @@ def detail(request):
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete = False)
         items = order.orderitem_set.all()
+        product_id = request.GET.get('id', '')
+        product = Product.objects.filter(id=product_id).first()
+        order_item = order.orderitem_set.filter(product=product).first() if product else None
+        quantity = order_item.quantity if order_item else 0
+
     else:
         items = []
         order = {
             'get_cart_item': 0, 
             'get_cart_total': 0
         }
-    id = request.GET.get('id', '')
-    products = Product.objects.filter(id=id)
+        quantity = 0 
+    
     categories = Category.objects.filter(is_trademark = False)
+
     context = {
-        'products': products,
+        'products': [product],
         'categories': categories,
         'items': items, 
-        'order': order
+        'order': order,
+        'quantity': quantity
     }
     return render(request, 'app/detail.html', context)
 
