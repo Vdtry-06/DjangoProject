@@ -283,20 +283,22 @@ def useraccount(request):
     categories = Category.objects.all()
     if request.method == "POST":
         first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
         email = request.POST.get('email')
-        old_password = request.POST.get('old_password')
+        # old_password = request.POST.get('old_password')
         password = request.POST.get('password')
         user = request.user
         user.first_name = first_name
+        user.last_name = last_name
         user.email = email
-        if old_password and user.check_password(old_password):
-            if password:
-                user.set_password(password)
-                update_session_auth_hash(request, user)
-            user.save()
-            messages.success(request, "Account information has been updated.")
-        else:
-            messages.error(request, "Current password is incorrect!")
+        # if old_password and user.check_password(old_password):
+        if password:
+            user.set_password(password)
+            update_session_auth_hash(request, user)
+        user.save()
+        messages.success(request, "Account information has been updated.")
+        # else:
+        #     messages.error(request, "Current password is incorrect!")
 
         return redirect('useraccount')
     else:
