@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %} {% load static %} {% block search_item %}
 <div class="container-home">
   <div class="row" style="width=100%;">
-    <h2 class="product-home">Suggest: {{searched}}</h2>
+    <h2 class="product-home" style="margin-left: 20px;">Suggest: {{searched}}</h2>
     {% for product in keys %}
     <div class="col-lg-3">
       <div class="product-wrapper">

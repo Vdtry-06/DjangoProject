@@ -54,6 +54,7 @@ body {
   font-weight: 500;
   line-height: 1.6;
   margin: 0;
+  background-color: rgb(236, 237, 235);
 }
 html,
 body {
@@ -351,7 +352,7 @@ h3.cart-title {
 }
 #header {
   height: 89px;
-  background-color: #d0d0d0;
+  background-color: #99c9d2;
   margin-bottom: 50px;
 }
 #header #header-nav .nav-item .nav-link {

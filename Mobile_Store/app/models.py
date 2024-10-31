@@ -4,10 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 import numpy as np
 import cv2
-# Create your models here.
 
-# Change forms register django
-# category
 class Category(models.Model):
     trademark = models.ForeignKey('self', on_delete = models.CASCADE, related_name = 'trademarks', null = True, blank = True)
     is_trademark = models.BooleanField(default = False)
@@ -53,9 +50,7 @@ class Product(models.Model):
         return url
     
     def extract_features(self):
-        # Trích xuất đặc trưng từ ảnh và lưu vào trường image_features
         if self.image:
-            # Kiểm tra nếu image tồn tại và có kích thước không
             try:
                 image_data = self.image.read()
                 if image_data:
@@ -64,7 +59,7 @@ class Product(models.Model):
                     sift = cv2.SIFT_create()
                     keypoints, descriptors = sift.detectAndCompute(gray, None)
                     if descriptors is not None:
-                        self.image_features = descriptors.tobytes()  # Chuyển thành chuỗi nhị phân để lưu
+                        self.image_features = descriptors.tobytes()
             except Exception as e:
                 print(f"Error processing image for product {self.name}: {e}")
     

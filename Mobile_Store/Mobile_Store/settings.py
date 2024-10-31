@@ -102,14 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-# Email settings
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'  # Địa chỉ máy chủ SMTP của Gmail
-# EMAIL_PORT = 587  # Cổng SMTP
-# EMAIL_USE_TLS = True  # Sử dụng TLS
-# EMAIL_HOST_USER = 'bestmobilestore24@gmail.com'
-# EMAIL_HOST_PASSWORD = '***********'
-# DEFAULT_FROM_EMAIL = 'bestmobilestore24@gmail.com'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

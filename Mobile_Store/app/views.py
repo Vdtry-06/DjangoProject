@@ -15,7 +15,6 @@ import cv2
 from ultralytics import YOLO
 from sklearn.metrics.pairwise import cosine_similarity
 from .forms import ImageSearchForm
-# Create your views here.
 
 def extract_features_from_image(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Chuyển đổi ảnh gốc sang màu xám
@@ -45,7 +44,7 @@ def image_search(request):
                 model = YOLO('yolov8n.pt')
                 results = model(img)  # Truyền ảnh gốc vào mô hình
                 for result in results:
-                    result.show()
+                    # result.show()
                     class_names = result.names
                     detected_objects = result.boxes.cls.tolist()
                     detected_names = [class_names[int(idx)] for idx in detected_objects]
