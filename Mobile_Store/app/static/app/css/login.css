@@ -17,6 +17,7 @@ form {
 }
 
 .form-title {
+    font-family: Arial;
     text-align: center;
     font-size: 40px;
     font-weight: bold;
@@ -27,11 +28,13 @@ form {
 
 
 .form-outline {
+    font-family: Arial;
     margin-bottom: 30px;
     color: #3979a0;
 }
 
 .form-outline label {
+    font-family: Arial;
     margin-left: 2px;
     display: block;
     margin-bottom: 8px;
@@ -43,17 +46,18 @@ form {
     width: 100%;
     padding: 15px;
     font-size: 16px;
+    font-family: Arial;
     border: 1px solid #ced4da;
     border-radius: 6px;
     box-sizing: border-box;
 }
 
 .btn-primary {
-    color: #58595a;
+    color: #feffff;
     font-weight: bold;
     height: 50px;
-    background-color: #b9b9b9;
-    border-color: #b9b9b9;
+    background-color: #2a83e1;
+    border-color: #2a83e1;
     width: 100%;
     padding: 15px;
     font-size: 18px;
@@ -65,7 +69,7 @@ form {
 }
 
 .btn-primary:hover {
-    background-color: #909394;
+    background-color: #62b7d3;
     border-color: #909394;
 }
 

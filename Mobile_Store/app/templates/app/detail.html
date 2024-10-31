@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %} {% load static %} {% block detail_item %}
+<br />
+<br />
+<br />
+<br />
+<br />
+<!DOCTYPE html>
+{% for product in products %}
+<div class="container mt-5 mb-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      <div class="card" style="border: 2px solid #7a9498; border-radius: 4px;">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="images p-3" style="background-color: #ffffff;">
+              <div class="text-center p-4" style="margin-top: 50px;">
+                <img id="main-image" src="{{product.ImageURL}}" width="450" height="300" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="product-detail p-4" style="background-color: #7a9498;">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-outline-dark" href="{% url 'home' %}" 
+                    >&#x2190; Back</a
+                  >
+                </div>
+                <div class="d-flex align-items-center">
+                    <a class="fa fa-shopping-cart text-muted" href="{% url 'cart' %}" style="height: 20px; width: 20px; color: #baf2f5 !important;"></a>
+                </div>
+              </div>
+              <div class="mt-4 mb-3">
+                <h3 class="text-uppercase" style="margin-top: -10px;">{{product.name}}</h3>
+                <h4 class="act-price">{{product.price}}$</h4>
+              </div>
+              <h5 style="color: #C6E7FF;">Cấu hình bộ nhớ:</h5>
+              <p class="about" style="margin-bottom: 5px; margin-top: 10px; color: #C6E7FF;">
+                Hệ điều hành: {{product.operating_system}}
+              </p>
+              <p class="about" style="margin-bottom: 5px; color: #C6E7FF;">
+                Chip xử lý (CPU): {{product.graphics_chip}}
+              </p>
+              <p class="about" style="margin-bottom: 5px; color: #C6E7FF;">
+                Tốc độ CPU: {{product.cpu_speed}}
+              </p>
+              <p class="about" style="margin-bottom: 5px; color: #C6E7FF;">
+                RAM: {{product.ram}}
+              </p>
+              <p class="about" style="margin-bottom: -35px; color: #C6E7FF;">
+                Màu sắc: {{product.color}}
+              </p>
+              <div class="sizes mt-5">
+                <h6 style="font-size: 18px;">Bộ nhớ: <label class="radio">
+                  <input type="radio" name="size" value="S" checked />
+                  <span>{{product.memory}}</span>
+                </label></h6>
+               
+              </div>
+              <div class="cart mt-4 align-items-center">
+                <button class="btn btn-danger text-uppercase mr-2 px-4 add-btn update-cart"
+                        data-product="{{product.id}}"
+                        data-action="add"
+                >
+                  Add to cart
+                </button>
+                {% if user.is_authenticated %}
+                <div class="notification" id="notification" style="display: none">
+                    1 product added successfully!
+                </div>
+                {% endif %}
+                <i class="fa fa-heart text-muted" style="margin-left: 15px; margin-right: 15px;"></i>
+                <i class="fa fa-share-alt text-muted"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<script src="{% static 'app/js/home.js' %}"></script>
+{% endfor %} {% endblock detail_item %}
