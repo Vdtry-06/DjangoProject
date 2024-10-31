@@ -31,16 +31,13 @@ def detail(request):
         items = order.orderitem_set.all()
         product_id = request.GET.get('id', '')
         product = Product.objects.filter(id=product_id).first()
-        order_item = order.orderitem_set.filter(product=product).first() if product else None
-        quantity = order_item.quantity if order_item else 0
-
+       
     else:
         items = []
         order = {
             'get_cart_item': 0, 
             'get_cart_total': 0
         }
-        quantity = 0 
     
     categories = Category.objects.filter(is_trademark = False)
 
@@ -48,8 +45,7 @@ def detail(request):
         'products': [product],
         'categories': categories,
         'items': items, 
-        'order': order,
-        'quantity': quantity
+        'order': order
     }
     return render(request, 'app/detail.html', context)
 
