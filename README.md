@@ -1,11 +1,10 @@
 # Mobile Web
 
-### user interface
-<video controls src="Screen Recording 2025-02-15 231037.mp4" title="Title"></video>
+### User interface
+<video controls src="Screen Recording 2025-02-15 231037-1.mp4" title="Title"></video>
 
-### admin
+### Admin interface
 <video controls src="Screen Recording 2025-02-15 232026.mp4" title="Title"></video>
-
 
 # 1. Thiết lập cơ bản cho dự án Django
 /c/Users/ASUS/AppData/Roaming/Python/Python311/Scripts/django-admin.exe startproject Mobile_Store
