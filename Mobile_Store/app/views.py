@@ -44,7 +44,7 @@ def image_search(request):
                 model = YOLO('yolov8n.pt')
                 results = model(img)  # Truyền ảnh gốc vào mô hình
                 for result in results:
-                    # result.show()
+                    result.show()
                     class_names = result.names
                     detected_objects = result.boxes.cls.tolist()
                     detected_names = [class_names[int(idx)] for idx in detected_objects]
@@ -68,7 +68,7 @@ def image_search(request):
                                     continue  # Bỏ qua sản phẩm nếu kích thước không hợp lệ
 
                                 similarity = cosine_similarity(query_features, stored_features).mean()
-                                # print(similarity)
+                                print(similarity)
                                 if similarity > 0.5:  # Chỉ xem xét các sản phẩm có độ tương đồng > 0.5         
                                     similarities.append((similarity, product))
 

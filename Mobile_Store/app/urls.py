@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.views.generic import RedirectView
 from django.urls import path
 from . import views
+from .api_views import get_user, create_user, user_detail
 
 urlpatterns = [
     path('', views.home, name = 'home'),
@@ -19,4 +20,9 @@ urlpatterns = [
     path('checkout/', views.checkout, name = 'checkout'),
     path('endpage/', views.endpage, name = 'endpage'),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
+    
+    # API
+    path('users/', get_user, name = 'get_user'),
+    path('users/create', create_user, name = 'create_user'),
+    path('users/<int:pk>', user_detail, name = 'user_detail'),
 ]
