@@ -1,10 +1,10 @@
 # Mobile Web
 
-### User interface
-<video controls src="1.mp4" title="Title"></video>
+# User interface
+[![User Interface Video](https://res.cloudinary.com/vdtry06/video/upload/1_hb8kl3.jpg)](https://res.cloudinary.com/vdtry06/video/upload/1_hb8kl3.mp4 "User Interface")
 
-### Admin interface
-<video controls src="2.mp4" title="Title"></video>
+# Admin interface
+[![Admin Interface Video](https://res.cloudinary.com/vdtry06/video/upload/2_btw2xc.jpg)](https://res.cloudinary.com/vdtry06/video/upload/2_btw2xc.mp4 "Admin Interface")
 
 # 1. Thiết lập cơ bản cho dự án Django
 /c/Users/ASUS/AppData/Roaming/Python/Python311/Scripts/django-admin.exe startproject Mobile_Store
