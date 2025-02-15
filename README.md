@@ -2,7 +2,9 @@
 
 ### User interface
 
+
 ### Admin interface
+
 
 # 1. Thiết lập cơ bản cho dự án Django
 /c/Users/ASUS/AppData/Roaming/Python/Python311/Scripts/django-admin.exe startproject Mobile_Store
