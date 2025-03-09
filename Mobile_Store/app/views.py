@@ -73,7 +73,7 @@ def image_search(request):
                                     similarities.append((similarity, product))
 
                         similarities.sort(reverse=True, key=lambda x: x[0])  # Sắp xếp theo độ tương đồng giảm dần
-                        keys = [product for _, product in similarities[:8]]  # Lấy 8 sản phẩm tương tự nhất
+                        keys = [product for _, product in similarities[:4]]  # Lấy 8 sản phẩm tương tự nhất
 
                         if not keys:  # Kiểm tra nếu không tìm thấy sản phẩm nào tương tự
                             searched = "not found"
