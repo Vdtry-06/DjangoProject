@@ -1,85 +1,84 @@
-/* Đặt toàn bộ trang có chiều cao 100% */
 html, body {
     height: 100%;
     margin: 0;
     display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    background-color: #f8f9fa; /* Màu nền trang */
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
 }
 
-/* Căn chỉnh form */
 form {
-    width: 330px; /* Chiều rộng của form chiếm 100% màn hình */
-    max-width: 600px; /* Chiều rộng tối đa của form lớn hơn (600px) */
-    padding: 40px; /* Tăng khoảng cách bên trong form */
-    background-color: white; /* Màu nền của form */
-    border-radius: 12px; /* Tăng bo góc cho form */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Đổ bóng đậm hơn cho form */
+    width: 330px;
+    max-width: 600px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Thêm CSS cho tiêu đề */
 .form-title {
-    text-align: center; /* Căn giữa tiêu đề */
-    font-size: 40px; /* Tăng kích thước tiêu đề */
-    font-weight: bold; /* Đậm chữ */
-    margin-bottom: 50px; /* Tạo khoảng cách dưới tiêu đề */
+    font-family: Arial;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 50px;
     margin-top: -20px;
-    color: #55afc8; /* Màu chữ tiêu đề */
+    color: #55afc8;
 }
 
-/* Điều chỉnh các nhãn (label) để nằm phía trên input và tạo khoảng cách */
+
 .form-outline {
-    margin-bottom: 30px; /* Khoảng cách giữa các trường input lớn hơn */
+    font-family: Arial;
+    margin-bottom: 30px;
     color: #3979a0;
 }
 
 .form-outline label {
+    font-family: Arial;
     margin-left: 2px;
-    display: block; /* Đảm bảo label nằm trên input */
-    margin-bottom: 8px; /* Khoảng cách giữa label và input lớn hơn */
-    font-size: 18px; /* Tăng kích thước font của label */
-    font-weight: bold; /* Đậm hơn */
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-/* Định dạng input */
 .form-control {
-    width: 100%; /* Đặt chiều rộng của input bằng với form */
-    padding: 15px; /* Tăng chiều cao của input */
-    font-size: 16px; /* Tăng kích thước chữ */
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-family: Arial;
     border: 1px solid #ced4da;
     border-radius: 6px;
-    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng */
+    box-sizing: border-box;
 }
 
-/* Định dạng nút Sign in */
 .btn-primary {
-    color: #58595a;
+    color: #feffff;
     font-weight: bold;
     height: 50px;
-    background-color: #b9b9b9; /* Màu nút Sign in */
-    border-color: #b9b9b9; /* Màu viền cho nút Sign in */
-    width: 100%; /* Chiều rộng bằng với input */
-    padding: 15px; /* Chiều cao tương tự input */
-    font-size: 18px; /* Tăng kích thước chữ */
+    background-color: #2a83e1;
+    border-color: #2a83e1;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
     box-sizing: border-box;
     text-align: center;
     display: block;
-    margin: 20px 0 0; /* Khoảng cách giữa nút và các thành phần khác */
-    border-radius: 6px; /* Bo góc của nút */
+    margin: 20px 0 0;
+    border-radius: 6px;
 }
 
 .btn-primary:hover {
-    background-color: #909394; /* Màu khi di chuột qua nút */
+    background-color: #62b7d3;
     border-color: #909394;
 }
 
 a {
-    text-decoration: none; /* Loại bỏ gạch chân */
+    text-decoration: none;
     color: #41b7cc;
 }
 
 a:hover {
-    text-decoration: underline; /* Gạch chân khi di chuột */
+    text-decoration: underline;
     color: #2e2c2c;
 }

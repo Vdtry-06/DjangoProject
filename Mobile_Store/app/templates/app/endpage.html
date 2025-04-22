@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="{% static 'app/css/endpage.css' %}">
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Thank you for purchasing our products!</h1>
+        <h2>Service Review</h2>
+        <form method="POST" action="{% url 'endpage' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea type="text" class="form-control" id="feedback" name="feedback" rows="3" placeholder="Your feedback..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

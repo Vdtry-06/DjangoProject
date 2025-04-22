@@ -1,7 +1,8 @@
 {% extends 'app/base.html' %} {% load static %} {% block cart_content %}
 <br /><br /><br /><br /><br />
 <link rel="stylesheet" href="{% static 'app/css/cart.css' %}" />
-<div class="row" style="width:100%">
+<div class="cart-frame">
+<div class="row" style="width:100%;">
   <div class="col-lg-12">
     <div class="box-element">
       <a class="btn btn-outline-dark" href="{% url 'home' %}"
@@ -15,13 +16,13 @@
             <h5>Items: <strong id="total-items">{{order.get_cart_items}}</strong></h5>
           </th>
           <th>
-            <h5>Total: <strong id="total-price">{{order.get_cart_total}}$</strong></h5>
+            <h5>Total: <strong id="total-price">{{order.get_cart_total | floatformat:2}}$</strong></h5>
           </th>
           <th>
             <a
-              style="float: right; margin: 5px"
+              style="float: right; margin-bottom: 20px;"
               class="btn btn-success"
-              href="{% url 'checkout' %}"
+              href="{% url 'checkout' %}" 
               >Checkout</a
             >
           </th>
@@ -53,9 +54,9 @@
                 />
               </th>
               <td>{{item.product.name}}</td>
-              <td class="price">{{item.product.price}}$</td>
+              <td class="price">{{item.product.price | floatformat:2}}$</td>
               <td>
-                <div class="quantity-container">
+                <div class="quantity-container" style="margin-left: 130px;">
                   <button data-product = {{item.product.id}} data-action = 'remove'
                     class="btn btn-outline-secondary small-btn update-cart"
                     onclick="decrementQuantity(this)"
@@ -71,7 +72,7 @@
                   </button>
                 </div>
               </td>
-              <td class="item-total">{{item.get_total}}$</td>
+              <td class="item-total">{{item.get_total | floatformat:2}}$</td>
             </tr>
             {% endfor%}
           </tbody>
@@ -79,5 +80,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock cart_content %}

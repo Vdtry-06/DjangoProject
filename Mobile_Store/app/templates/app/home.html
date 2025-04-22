@@ -1,5 +1,9 @@
 {% extends 'app/base.html' %} {% load static %} {% block banner_slider %}
-<section id="billboard" class="position-relative overflow-hidden bg-light-blue">
+<section
+  id="billboard"
+  class="position-relative overflow-hidden bg-light-blue"
+  data-bs-ride="carousel"
+>
   <div class="swiper main-swiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
@@ -23,7 +27,7 @@
             <div class="col-md-5">
               <div class="image-holder">
                 <img
-                  src="{% static 'app/images/banner/banner-image3.png' %}"
+                  src="{% static 'app/images/banner/banner-image2.png' %}"
                   alt="banner"
                 />
               </div>
@@ -52,7 +56,7 @@
             <div class="col-md-5">
               <div class="image-holder">
                 <img
-                  src="{% static 'app/images/banner/banner-image2.png' %}"
+                  src="{% static 'app/images/banner/banner-image3.png' %}"
                   alt="banner"
                 />
               </div>
@@ -135,32 +139,81 @@
     </div>
   </div>
 </section>
-{% endblock banner_slider %} 
-{% block main-content %}
+{% endblock banner_slider %} {% block main-content %}
 <div class="container-home">
-  <div class="row" style="width=100%">
-    <h2 class="product-home">Products</h2>
+  <div class="row" style="width: 100%;">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="dropdown">
+          <h2 id="products" class="product-home" style="margin-left: -10px;"> Products
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort
+          </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'home' 'name' 'increase' %}">Items</a></li>
+          <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Price</a>
+              <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'home' 'price' 'increase' %}">Increase</a></li>
+                  <li><a class="dropdown-item" href="{% url 'home' 'price' 'decrease' %}">Decrease</a></li>
+              </ul>
+          </li>
+      </ul>
+      </div>
+    </div>
+    <script>document.addEventListener('DOMContentLoaded', function () {
+      var dropdownSubmenus = document.querySelectorAll('.dropdown-submenu');
+    
+      dropdownSubmenus.forEach(function (submenu) {
+        submenu.addEventListener('mouseover', function () {
+          var dropdownMenu = submenu.querySelector('.dropdown-menu');
+          if (dropdownMenu) {
+            dropdownMenu.classList.add('show');
+          }
+        });
+    
+        submenu.addEventListener('mouseout', function () {
+          var dropdownMenu = submenu.querySelector('.dropdown-menu');
+          if (dropdownMenu) {
+            dropdownMenu.classList.remove('show');
+          }
+        });
+      });
+    });</script>
+  </h2>
+      
+    <hr />
     {% for product in products %}
     <div class="col-lg-3">
       <div class="product-wrapper">
-        <img class="product-image" src="{{product.ImageURL}}" alt="" />
-        <div class="box-element product">
+        <div class="image-frame">
+          <img class="product-image" src="{{product.ImageURL}}" style="transform: scale(0.85);" alt="" />
+        </div>
+       
+        <div class="box-element product" style="margin-top: 35px;">
           <br />
           <h6><strong>{{product.name}}</strong></h6>
-          <hr />
-          <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
-          <a class="btn btn-outline-success" href="#">View</a>
+          {% comment %} <hr /> {% endcomment %}
+          <button
+            data-product="{{product.id}}"
+            data-action="add"
+            class="btn btn-outline-secondary add-btn update-cart"
+          >
+            Add to cart
+          </button>
+          {% if user.is_authenticated %}
+            <div class="notification" id="notification" style="display: none;">1 product added successfully!</div>
+          {% endif %}
+          <a class="btn btn-outline-success" href="{% url 'detail' %}?id={{product.id}}">View</a>
           <h4 class="price" style="display: inline-block; float: right">
-            <strong>{{product.price | floatformat:2}}$</strong>
+            {% comment %} <button type="button" class="btn btn-info"></button> {% endcomment %}
+            <strong class="btn btn-outline-primary" style="font-size: 16px; margin-top: -5px;">{{product.price | floatformat:2}}$</strong>
           </h4>
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
-  
 </div>
-<div class="empty-home">
-
-  </div>
+<div class="empty-home"></div>
+<script src="{% static 'app/js/home.js' %}"></script>
 {% endblock main-content %}

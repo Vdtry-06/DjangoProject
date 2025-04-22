@@ -12,6 +12,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="{% static 'app/css/main.css' %}" />
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link
       rel="stylesheet"
       type="text/css"
@@ -30,17 +31,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     {% comment %}
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <link rel="stylesheet" href="{% static 'app/css/base.css' %}" />
     {% endcomment %}
     <link
       rel="stylesheet"
@@ -54,40 +45,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
-
-    <!-- script
-    ================================================== -->
-    <script src="{% static 'app/js/modernizr.js' %}"></script>
-    <script type="text/javascript">
-      let user = '{{request.user}}'
-      function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const csrftoken = getCookie('csrftoken');
-    </script>
-  </head>
-  <body
-    data-bs-spy="scroll"
-    data-bs-target="#navbar"
-    data-bs-root-margin="0px 0px -40%"
-    data-bs-smooth-scroll="true"
-    tabindex="0"
-  >
     <svg xmlns="http://www.w3.org/2000/sPYvg" style="display: none">
       <symbol
         xmlns="http://www.w3.org/2000/svg"
@@ -162,327 +126,830 @@
           d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"
         />
       </symbol>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        id="chevron-left"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+        />
+      </svg>
+      <symbol
+        xmlns="http://www.w3.org/2000/svg"
+        id="chevron-right"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+        />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="quote" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="m15 17l2-4h-4V6h7v7l-2 4h-3Zm-9 0l2-4H4V6h7v7l-2 4H6Z"
+        />
+      </symbol>
+      <symbol
+        xmlns="http://www.w3.org/2000/svg"
+        id="star-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+        />
+      </symbol>
+      <symbol
+        xmlns="http://www.w3.org/2000/svg"
+        id="star-empty"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
+        />
+      </symbol>
+      <symbol
+        xmlns="http://www.w3.org/2000/svg"
+        id="star-half"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"
+        />
+      </symbol>
     </svg>
-
-    <header
-      id="header"
-      class="site-header header-scrolled position-fixed text-black"
-    >
-      <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-            <img src="{% static 'app/images/main-logo.png' %}" class="logo" />
-          </a>
-          <button
-            class="navbar-toggler d-flex d-lg-none order-3 p-2"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#bdNavbar"
-            aria-controls="bdNavbar"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <svg class="navbar-icon">
-              <use xlink:href="#navbar-icon"></use>
-            </svg>
-          </button>
-          <div
-            class="offcanvas offcanvas-end"
-            tabindex="-1"
-            id="bdNavbar"
-            aria-labelledby="bdNavbarOffcanvasLabel"
-          >
-            <div class="offcanvas-header px-4 pb-0">
-              <a class="navbar-brand" href="index.html">
-                <img
-                  src="{% static 'app/images/main-logo.png' %}"
-                  class="logo"
-                />
-              </a>
-              <button
-                type="button"
-                class="btn-close btn-close-black"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-                data-bs-target="#bdNavbar"
-              ></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul
-                id="navbar"
-                class="navbar-nav font-size=10px justify-content-end align-items-center flex-grow-1 pe-3"
-              >
-                <li class="nav-item">
-                  <div class="user-items ps-5">
-                    <ul class="d-flex justify-content-end list-unstyled">
-                      <li class="search-item pe-3">
-                        <form class="search-button" role="search" method="POST" action="{% url 'search' %}">
-                          {% csrf_token %}
-                          <input
-                            class="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                            name="searched"
+    <!-- script
+    ================================================== -->
+    <script src="{% static 'app/js/modernizr.js' %}"></script>
+    <script type="text/javascript">
+      let user = "{{request.user}}";
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getCookie("csrftoken");
+    </script>
+  </head>
+  <body
+    data-bs-spy="scroll"
+    data-bs-target="#navbar"
+    data-bs-root-margin="0px 0px -40%"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <div class="base-container">
+      <header
+        id="header"
+        class="site-header header-scrolled position-fixed text-black"
+      >
+        <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000/static/app/images/logo-image.png"
+              ><img src="{% static 'app/images/logo-image.png' %}" 
+              class="logo" 
+              style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; transform: scale(1.4); overflow: hidden; margin-top:5px;"
+            /></a>
+            <button
+              class="navbar-toggler d-flex d-lg-none order-3 p-2"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#bdNavbar"
+              aria-controls="bdNavbar"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <svg class="navbar-icon">
+                <use xlink:href="#navbar-icon"></use>
+              </svg>
+            </button>
+            <div
+              class="offcanvas offcanvas-end"
+              tabindex="-1"
+              id="bdNavbar"
+              aria-labelledby="bdNavbarOffcanvasLabel"
+            >
+              <div class="offcanvas-header px-4 pb-0">
+                <a class="navbar-brand" href="index.html"
+                  ><img
+                    src="{% static 'app/images/logo-image.png' %}"
+                    class="logo"
+                    style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; transform: scale(1.5);"
+                /></a>
+                <button
+                  type="button"
+                  class="btn-close btn-close-black"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul
+                  id="navbar"
+                  class="navbar-nav font-size=10px justify-content-end align-items-center flex-grow-1 pe-3"
+                >
+                  <li class="nav-item">
+                    <div class="user-items ps-5">
+                      <ul class="d-flex justify-content-end list-unstyled">
+                        <li class="search-item pe-3">
+                          <form
+                            class="search-button d-flex"
+                            role="search"
+                            method="POST"
+                            action="{% url 'search' %}"
+                            enctype="multipart/form-data"
+                            onsubmit="return handleSearch(event)"
+                          >
+                            {% csrf_token %}
+                            <input
+                              class="search form-control me-2"
+                              placeholder="Search"
+                              aria-label="Search"
+                              name="searched"
+                              id="search-input"
+                              oninput="toggleUploadButton()"
+                            />
+                            <input
+                              type="file"
+                              name="image"
+                              accept="image/*"
+                              class="form-control me-2"
+                              aria-label="Upload Image"
+                              title="Upload an image to search"
+                              id="image-upload"
+                              onchange="toggleSearchInput()"
+                            />
+                            <button type="submit" class="btn btn-primary">
+                              Search
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link me-4 active" href="{% url 'home' %}"
+                      >Home</a
+                    >
+                  </li> 
+                  {% if request.resolver_match.url_name == "home" %}
+                    <li class="nav-item">
+                      <a class="nav-link me-4" href="#products"
+                        >Products</a
+                      >
+                    </li>
+                  {% endif %}
+                  <li class="nav-item dropdown" style="margin-right: 20px;">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      role="button"
+                      aria-expanded="false"
+                      >Trademark</a
+                    >
+                    <ul class="dropdown-menu">
+                      {% for category in categories %}
+                      <li>
+                        <a
+                          href="{% url 'category' %}?category={{category.slug}}&trademark={{ category.name }}"
+                          class="dropdown-item"
+                          >{{category.name}}</a
+                        >
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                 
+                  {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link me-4" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link me-4" href="{% url 'register' %}"
+                        >Register</a
+                      >
+                    </li>
+                  {% elif user.is_authenticated  and not user.is_superuser%}
+                    <li class="nav-item dropdown">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        role="button"
+                        aria-expanded="false"
+                        ><img
+                        src="{% static 'app/images/user (2).png' %}"
+                        alt=""
+                        style="margin-top: -3px; width: 25px; height: 25px;"
+                      /></a
+                      >
+                      <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href= "{% url 'useraccount' %}">Account</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'cart' %}"
+                            class="dropdown-item"
+                            >Cart
+                            <img
+                              src="{% static 'app/images/shopping-cart.png' %}"
+                              alt=""
                           />
-                        </form>
-                      </li>
-                      <li class="pe-3">
-                        <a href="#">
-                          <img src="{% static 'app/images/user-cart.png' %}" alt="">
                         </a>
+                        </li>
+                        <li class="nav-item" style="margin-left: 10px;">
+                          <a class="nav-link me-4" href="{% url 'logout' %}"
+                            >Logout</a
+                          >
+                        </li>
+                      </ul>
+                  </li>
+                  {% elif user.is_superuser %}
+                    <li class="nav-item dropdown">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        role="button"
+                        aria-expanded="false"
+                        ><img
+                        src="{% static 'app/images/protection.png' %}"
+                        alt=""
+                        style="margin-top: -3px; width: 25px; height: 25px;"
+                      /></a
+                      >
+                      <ul class="dropdown-menu">
+                        <li class="nav-item">
+                          <a class="nav-link me-4" href="{% url 'admin:index' %}"
+                            >Admin</a
+                          >
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link me-4" href="{% url 'logout' %}"
+                            >Logout</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <script>
+        function toggleUploadButton() {
+          const searchInput = document.getElementById("search-input");
+          const imageUpload = document.getElementById("image-upload");
+
+          // Enable or disable the image upload input based on the search input
+          imageUpload.disabled = searchInput.value.length > 0;
+        }
+
+        function toggleSearchInput() {
+          const searchInput = document.getElementById("search-input");
+          const imageUpload = document.getElementById("image-upload");
+
+          // Enable or disable the search input based on the image upload
+          searchInput.disabled = imageUpload.files.length > 0;
+        }
+
+        function handleSearch(event) {
+          const searchInput = document.getElementById("search-input").value;
+          const imageUpload =
+            document.getElementById("image-upload").files.length;
+
+          // Change the action based on the inputs
+          if (searchInput) {
+            event.currentTarget.action = "{% url 'search' %}"; // Text search
+          } else if (imageUpload) {
+            event.currentTarget.action = "{% url 'image_search' %}"; // Image search
+          } else {
+            event.preventDefault(); // Prevent form submission if no input
+            alert("Please enter a search term or upload an image.");
+          }
+        }
+      </script>
+      <div class="wrapper">
+        <main class="main">
+          <!-- main body -->
+          {% block banner_slider %} {% endblock banner_slider %}
+          <!-- main content -->
+          {% block main-content%} {% endblock main-content %}
+          <!-- cart interface-->
+          {% block cart_content %} {% endblock cart_content %}
+          <!-- user account -->
+          {% block user_account %} {% endblock user_account %}
+          <!-- checkout interface-->
+          {% block content_checkout %} {% endblock content_checkout %}
+          <!-- search -->
+          {% block search_item %} {% endblock search_item %}
+          <!-- detail -->
+          {% block detail_item %} {% endblock detail_item %}
+          <!-- category -->
+          {% block trademark %} {% endblock trademark %} 
+
+          {% if request.resolver_match.url_name == "home" %}
+            <div class="grid__column-10" style="margin-bottom: 75px; margin-top: -30px;">
+              <ul class="pagination home-product__pagination">
+                  <!-- Nút "<" sẽ bị vô hiệu hóa nếu đang ở trang đầu tiên -->
+                  <li class="pagination-item {% if not products.has_previous %}disabled{% endif %}">
+                      <a href="{% if products.has_previous %}?page={{ products.previous_page_number }}{% else %}#{% endif %}" class="pagination-item__link">
+                          <i class="pagination-item__icon fas fa-angle-left"></i>
+                      </a>
+                  </li>
+
+                  <!-- Hiển thị các số trang -->
+                  {% for page_num in products.paginator.page_range %}
+                      {% if page_num == products.number %}
+                      <li class="pagination-item pagination-item--active">
+                          <a href="?page={{ page_num }}" class="pagination-item__link">{{ page_num }}</a>
                       </li>
-                      <li>
-                        <a href="{% url 'cart' %}" >
-                          <img src="{% static 'app/images/shopping-cart.png' %}" alt="">
-                        </a>
+                      {% else %}
+                      <li class="pagination-item">
+                          <a href="?page={{ page_num }}" class="pagination-item__link">{{ page_num }}</a>
                       </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4 active" href="{% url 'home' %}"
-                    >Home</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="#company-services">Products</a>
-                </li>
-                
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="{% url 'admin:index' %}"
-                    >Admin</a
-                  >
-                </li>
-                {% if user.is_authenticated %}
-                  <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'logout' %}">Logout</a>
+                      {% endif %}
+                  {% endfor %}
+
+                  <!-- Nút ">" sẽ bị vô hiệu hóa nếu đang ở trang cuối cùng -->
+                  <li class="pagination-item {% if not products.has_next %}disabled{% endif %}">
+                      <a href="{% if products.has_next %}?page={{ products.next_page_number }}{% else %}#{% endif %}" class="pagination-item__link">
+                          <i class="pagination-item__icon fas fa-angle-right"></i>
+                      </a>
                   </li>
-                  
-                {% else %}
-                  <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'login' %}">Login</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'register' %}">Register</a>
-                  </li>
-                {% endif %}
-                {% comment %} <li class="nav-item">
-                  <a class="nav-link me-4" href="{% url 'register' %}">Register</a>
-                </li> {% endcomment %}
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    role="button"
-                    aria-expanded="false"
-                    >Pages</a
-                  >
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="about.html" class="dropdown-item">Personal</a>
-                    </li>
-                    <li>
-                      <a href="blog.html" class="dropdown-item">Orders</a>
-                    </li>
-                    <li>
-                      <a href="shop.html" class="dropdown-item">Exit</a>
-                    </li>
-                  </ul>
-                </li>
               </ul>
-            </div>
           </div>
-        </div>
-      </nav>
-    </header>
-    <!-- main body -->
-    {% block banner_slider %} {% endblock banner_slider %} 
-    {% block main-content%} {% endblock main-content %}
-    <!-- cart interface-->
-    {% block cart_content %} {% endblock cart_content %}
-    <!-- checkout interface-->
-    {% block content_checkout %} {% endblock content_checkout %}
-    <!-- search -->
-    {% block search_item %} {% endblock search_item %}
-    <!-- footer -->
-    <footer id="footer" class="overflow-hidden">
-      <div class="container">
-        <div class="row">
-          <div class="footer-top-area">
-            <div class="row d-flex flex-wrap justify-content-between">
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu">
-                  <img
-                    src="{% static 'app/images/main-logo.png' %}"
-                    alt="logo"
-                  />
-                  <p>“Any fool can set up a website. :vvv” Patricia Briggs</p>
-                  <div class="social-links">
-                    <ul class="d-flex list-unstyled">
-                      <li>
-                        <a href="#">
-                          <svg class="facebook">
-                            <use xlink:href="#facebook" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <svg class="instagram">
-                            <use xlink:href="#instagram" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <svg class="twitter">
-                            <use xlink:href="#twitter" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <svg class="linkedin">
-                            <use xlink:href="#linkedin" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <svg class="youtube">
-                            <use xlink:href="#youtube" />
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 pb-3">
-                <div class="footer-menu">
-                  <h5 class="widget-title pb-2">Quick Links</h5>
-                  <ul class="menu-list list-unstyled">
-                    <li class="menu-item pb-2">
-                      <a href="#">Home</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">About</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Shop</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Blogs</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Contact</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu">
-                  <h5 class="widget-title pb-2">Help & Info Help</h5>
-                  <ul class="menu-list list-unstyled">
-                    <li class="menu-item pb-2">
-                      <a href="#">Track Your Order</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Returns Policies</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Shipping + Delivery</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Contact Us</a>
-                    </li>
-                    <li class="menu-item pb-2">
-                      <a href="#">Faqs</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 pb-3">
-                <div class="footer-menu contact-item">
-                  <h5 class="widget-title pb-2">Contact Us</h5>
-                  <p>
-                    Do you have any queries or suggestions?
-                    <a href="mailto:">TrongHungThuat@gmail.com</a>
-                  </p>
-                  <p>
-                    If you need support? Just give us a call.
-                    <a href="">+012 345 6789</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <div id="footer-bottom">
+          {% endif %}
+        </main>
+        <!-- footer -->
+        <footer id="footer" class="overflow-hidden">
+          <section id="testimonials" class="position-relative">
             <div class="container">
-              <div class="row d-flex flex-wrap justify-content-between">
-                <div class="col-md-4 col-sm-6">
-                  <div class="Shipping d-flex">
-                    <p>We ship with:</p>
-                    <div class="card-wrap ps-2">
-                      <img src="{% static 'app/images/dhl.png' %}" alt="visa" />
-                      <img
-                        src="{% static 'app/images/shippingcard.png' %}"
-                        alt="mastercard"
-                      />
+              <div class="row">
+                <div class="review-content position-relative">
+                  <div
+                    class="swiper-icon swiper-arrow swiper-arrow-prev position-absolute d-flex align-items-center"
+                  >
+                    <svg class="chevron-left">
+                      <use xlink:href="#chevron-left" />
+                    </svg>
+                  </div>
+                  <div class="swiper testimonial-swiper">
+                    <div class="quotation text-center">
+                      <svg class="quote" style="color: white;">
+                        <use xlink:href="#quote" />
+                      </svg>
+                    </div>
+                    <div class="swiper-wrapper">
+                      <div
+                        class="swiper-slide text-center d-flex justify-content-center"
+                      >
+                        <div class="review-item col-md-10">
+                          <i class="icon icon-review"></i>
+                          <blockquote>
+                            “Tempus oncu enim pellen tesque este pretium in
+                            neque, elit morbi sagittis lorem habi mattis Pellen
+                            tesque pretium feugiat vel morbi suspen dise
+                            sagittis lorem habi tasse morbi.”
+                          </blockquote>
+                          <div class="rating">
+                            <svg class="star star-fill">
+                              <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                              <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                              <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-half">
+                              <use xlink:href="#star-half"></use>
+                            </svg>
+                            <svg class="star star-empty">
+                              <use xlink:href="#star-empty"></use>
+                            </svg>
+                          </div>
+                          <div class="author-detail">
+                            <div class="name text-dark text-uppercase pt-2">
+                              Emma Chamberlin
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="swiper-slide text-center d-flex justify-content-center"
+                      >
+                        <div class="review-item col-md-10">
+                          <i class="icon icon-review"></i>
+                          <blockquote>
+                            “A blog is a digital publication that can complement
+                            a website or exist independently. A blog may include
+                            articles, short posts, listicles, infographics,
+                            videos, and other digital content.”
+                          </blockquote>
+                          <div class="rating">
+                            <svg class="star star-fill">
+                              <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                              <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                              <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-half">
+                              <use xlink:href="#star-half"></use>
+                            </svg>
+                            <svg class="star star-empty">
+                              <use xlink:href="#star-empty"></use>
+                            </svg>
+                          </div>
+                          <div class="author-detail">
+                            <div class="name text-dark text-uppercase pt-2">
+                              Jennie Rose
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="swiper-icon swiper-arrow swiper-arrow-next position-absolute d-flex align-items-center"
+                  >
+                    <svg class="chevron-right">
+                      <use xlink:href="#chevron-right" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </section>
+          {% if not user.is_authenticated %}
+            <section
+              id="subscribe"
+              class="container-grid padding-large position-relative overflow-hidden"
+            >
+              <div class="container">
+                <div class="row">
+                  <div
+                    class="subscribe-content bg-dark d-flex flex-wrap justify-content-center align-items-center padding-medium"
+                  >
+                    <div class="col-md-6 col-sm-12">
+                      <div class="display-header pe-3">
+                        <h2 class="display-7 text-uppercase text-light">
+                          Subscribe Us Now
+                        </h2>
+                        <p>
+                          Get latest news, updates and deals directly mailed to
+                          your inbox.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                      <form class="subscription-form validate">
+                        <div class="input-group flex-wrap">
+                          <input
+                            class="form-control btn-rounded-none"
+                            type="email"
+                            name="EMAIL"
+                            placeholder="Your email address here"
+                            id="email"
+                            required=""
+                          />
+                          <button
+                            class="btn btn-medium btn-primary text-uppercase btn-rounded-none"
+                            type="button"
+                            name="subscribe"
+                            onclick="window.location.href='{% url 'register' %}'"
+                          >
+                            Subscribe
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                  <div class="payment-method d-flex">
-                    <p>Payment options:</p>
-                    <div class="card-wrap ps-2">
+              </div>
+            </section>
+            {% else %}
+            <br />
+            <br />
+            <br />
+            <br />
+            {% endif %}
+          <section
+            id="instagram"
+            class="padding-large overflow-hidden no-padding-top"
+          >
+            <div class="container">
+              <div class="row">
+                <div
+                  class="display-header text-uppercase text-dark text-center pb-3"
+                >
+                  <h2 class="display-7">Shop Our Instag</h2>
+                </div>
+                <div class="d-flex flex-wrap">
+                  <figure class="instagram-item pe-2">
+                    <a
+                      href="https://templatesjungle.com/"
+                      class="image-link position-relative"
+                    >
                       <img
-                        src="{% static 'app/images/visa.jpg' %}"
-                        alt="visa"
+                        src="{% static 'app/images/insta-item1.jpg' %}"
+                        alt="instagram"
+                        class="insta-image"
                       />
+                      <div
+                        class="icon-overlay position-absolute d-flex justify-content-center"
+                      >
+                        <svg class="instagram">
+                          <use xlink:href="#instagram"></use>
+                        </svg>
+                      </div>
+                    </a>
+                  </figure>
+                  <figure class="instagram-item pe-2">
+                    <a
+                      href="https://templatesjungle.com/"
+                      class="image-link position-relative"
+                    >
                       <img
-                        src="{% static 'app/images/mastercard.jpg' %}"
-                        alt="mastercard"
+                        src="{% static 'app/images/insta-item2.jpg' %}"
+                        alt="instagram"
+                        class="insta-image"
                       />
+                      <div
+                        class="icon-overlay position-absolute d-flex justify-content-center"
+                      >
+                        <svg class="instagram">
+                          <use xlink:href="#instagram"></use>
+                        </svg>
+                      </div>
+                    </a>
+                  </figure>
+                  <figure class="instagram-item pe-2">
+                    <a
+                      href="https://templatesjungle.com/"
+                      class="image-link position-relative"
+                    >
                       <img
-                        src="{% static 'app/images/paypal.jpg' %}"
-                        alt="paypal"
+                        src="{% static 'app/images/insta-item3.jpg' %}"
+                        alt="instagram"
+                        class="insta-image"
                       />
+                      <div
+                        class="icon-overlay position-absolute d-flex justify-content-center"
+                      >
+                        <svg class="instagram">
+                          <use xlink:href="#instagram"></use>
+                        </svg>
+                      </div>
+                    </a>
+                  </figure>
+                  <figure class="instagram-item pe-2">
+                    <a
+                      href="https://templatesjungle.com/"
+                      class="image-link position-relative"
+                    >
+                      <img
+                        src="{% static 'app/images/insta-item4.jpg' %}"
+                        alt="instagram"
+                        class="insta-image"
+                      />
+                      <div
+                        class="icon-overlay position-absolute d-flex justify-content-center"
+                      >
+                        <svg class="instagram">
+                          <use xlink:href="#instagram"></use>
+                        </svg>
+                      </div>
+                    </a>
+                  </figure>
+                  <figure class="instagram-item pe-2">
+                    <a
+                      href="https://templatesjungle.com/"
+                      class="image-link position-relative"
+                    >
+                      <img
+                        src="{% static 'app/images/insta-item5.jpg' %}"
+                        alt="instagram"
+                        class="insta-image"
+                      />
+                      <div
+                        class="icon-overlay position-absolute d-flex justify-content-center"
+                      >
+                        <svg class="instagram">
+                          <use xlink:href="#instagram"></use>
+                        </svg>
+                      </div>
+                    </a>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </section>
+          <hr />
+          <div class="container">
+            <div class="row">
+              <div class="footer-top-area">
+                <div class="row d-flex flex-wrap justify-content-between">
+                  <div class="col-lg-3 col-sm-6 pb-3">
+                    <div class="footer-menu">
+                      <img
+                        src="{% static 'app/images/logo-image.png' %}"
+                        alt="logo"
+                        style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; transform: scale(1.5); margin-bottom: 5px;"
+                      />
+                      <p>
+                        “Any fool can set up a website. :vvv” Patricia Briggs
+                      </p>
+                      <div class="social-links">
+                        <ul class="d-flex list-unstyled">
+                          <li>
+                            <a href="#">
+                              <svg class="facebook">
+                                <use xlink:href="#facebook" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <svg class="instagram">
+                                <use xlink:href="#instagram" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <svg class="twitter">
+                                <use xlink:href="#twitter" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <svg class="linkedin">
+                                <use xlink:href="#linkedin" />
+                              </svg>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <svg class="youtube">
+                                <use xlink:href="#youtube" />
+                              </svg>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-6 pb-3">
+                    <div class="footer-menu">
+                      <h5 class="widget-title pb-2">Quick Links</h5>
+                      <ul class="menu-list list-unstyled">
+                        <li class="menu-item pb-2">
+                          <a href="#">Home</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">About</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">Shop</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">Blogs</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">Contact</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 pb-3">
+                    <div class="footer-menu">
+                      <h5 class="widget-title pb-2">Help & Info Help</h5>
+                      <ul class="menu-list list-unstyled">
+                        <li class="menu-item pb-2">
+                          <a href="#">Track Your Order</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">Returns Policies</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">Shipping + Delivery</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">Contact Us</a>
+                        </li>
+                        <li class="menu-item pb-2">
+                          <a href="#">Faqs</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 pb-3">
+                    <div class="footer-menu contact-item">
+                      <h5 class="widget-title pb-2">Contact Us</h5>
+                      <p>
+                        Do you have any queries or suggestions?
+                        <a href="mailto:">TrongHungThuat@gmail.com</a>
+                      </p>
+                      <p>
+                        If you need support? Just give us a call.
+                        <a href="">+012 345 6789</a>
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4 col-sm-6">
-                  <div class="copyright">
-                    <p>
-                      © Copyright 2024 MiniStore. Design by
-                      <a href="https://templatesjungle.com/">TrongHungThuat</a>
-                      Distribution by
-                      <a href="https://themewagon.com">ThemeWagon</a>
-                    </p>
+              </div>
+              <hr />
+              <div id="footer-bottom">
+                <div class="container">
+                  <div class="row d-flex flex-wrap justify-content-between">
+                    <div class="col-md-4 col-sm-6">
+                      <div class="Shipping d-flex">
+                        <p>We ship with:</p>
+                        <div class="card-wrap ps-2">
+                          <img
+                            src="{% static 'app/images/dhl.png' %}"
+                            alt="visa"
+                          />
+                          <img
+                            src="{% static 'app/images/shippingcard.png' %}"
+                            alt="mastercard"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                      <div class="payment-method d-flex">
+                        <p>Payment options:</p>
+                        <div class="card-wrap ps-2">
+                          <img
+                            src="{% static 'app/images/visa.jpg' %}"
+                            alt="visa"
+                          />
+                          <img
+                            src="{% static 'app/images/mastercard.jpg' %}"
+                            alt="mastercard"
+                          />
+                          <img
+                            src="{% static 'app/images/paypal.jpg' %}"
+                            alt="paypal"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                      <div class="copyright">
+                        <p>
+                          © Copyright 2024 MiniStore. Design by
+                          <a href="https://templatesjungle.com/"
+                            >TrongHungThuat</a
+                          >
+                          Distribution by
+                          <a href="https://themewagon.com">ThemeWagon</a>
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </footer>
       </div>
-    </footer>
-    <script src="{% static 'app/js/cart.js' %}"></>
-    <script src="{% static 'app/js/jquery-1.11.0.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script
-      type="text/javascript"
-      src="{% static 'app/js/bootstrap.bundle.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'app/js/plugins.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'app/js/script.js' %}"
-    ></script>
+    </div>
   </body>
+  <script src="{% static 'app/js/cart.js' %}"></script>
+  <script src="{% static 'app/js/jquery-1.11.0.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script
+    type="text/javascript"
+    src="{% static 'app/js/bootstrap.bundle.min.js' %}"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{% static 'app/js/plugins.js' %}"
+  ></script>
+  <script type="text/javascript" src="{% static 'app/js/script.js' %}"></script>
 </html>

@@ -1,0 +1,104 @@
+/* Đặt form ở giữa màn hình */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+    margin: 0;
+  }
+  
+  /* Container của form */
+  .form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  /* Tiêu đề của form */
+  .form-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-size: 35px;
+    color: #55afc8;
+  }
+  
+  /* Căn chỉnh form tổng quan */
+.register-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Nhóm các trường thông tin */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Các dòng trong form */
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 20px;
+  }
+  
+  /* Các trường thông tin */
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    flex: 1;
+  }
+  
+  /* Đặt chiều rộng cho nhãn để căn thẳng hàng */
+  .form-field label {
+    width: 120px;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  
+  /* Chỉnh các trường nhập */
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Nút submit */
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Liên kết đăng nhập */
+  .login-link {
+    text-align: center;
+    margin-top: 15px;
+    color: #555;
+  }
+  
+  .login-link a {
+    color: #55afc8;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,65 @@
+{% extends 'app/base.html' %} 
+{% load static %} 
+{% block trademark %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="detail-branch">
+    <div class="container-home">
+      <div class="row" style="width=100%;">
+        <div class="trademark-name">
+            {% if trademark_name %}
+                <h2>{{ trademark_name }}</h2>
+                
+            {% endif %}
+        </div>
+        <br />
+        <br />
+        <br />
+        {% for product in products %}
+        <div class="col-lg-3">
+          <div class="product-wrapper">
+            <img class="product-image" src="{{product.ImageURL}}" alt="" />
+            <div class="box-element product">
+              <br />
+              <h6><strong>{{product.name}}</strong></h6>
+              <hr />
+              <button
+                data-product="{{product.id}}"
+                data-action="add"
+                class="btn btn-outline-secondary add-btn update-cart"
+              >
+                Add to cart
+              </button>
+              {% if user.is_authenticated %}
+              <div class="notification" id="notification" style="display: none">
+                1 product added successfully!
+              </div>
+              {% endif %}
+              <a class="btn btn-outline-success" href="{% url 'detail' %}?id={{product.id}}">View</a>
+              <h4 class="price" style="display: inline-block; float: right">
+                <strong>{{product.price | floatformat:2}}$</strong>
+              </h4>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="change-template" style="margin-left: 595px; margin-top: -300px; margin-bottom: 100px;">
+      <a class="btn btn-outline-dark" href="{% url 'home' %}"
+        >&#x2190; Comeback Home</a
+      >
+      <a class="btn btn-outline-dark" href="{% url 'cart' %}"
+        > Come to Cart &#x2192;</a
+      >
+    </div>
+  </div>
+  </body>
+</html>
+<script src="{% static 'app/js/home.js' %}"></script>
+{% endblock trademark %}
