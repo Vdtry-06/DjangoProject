@@ -1,19 +1,21 @@
 # Mobile Web
 
-# User interface
+## User interface
+- Click to watch video
 [![User Interface Video](https://res.cloudinary.com/vdtry06/video/upload/1_hb8kl3.jpg)](https://res.cloudinary.com/vdtry06/video/upload/1_hb8kl3.mp4 "User Interface")
 
-# Admin interface
+## Admin interface
+- Click to watch video
 [![Admin Interface Video](https://res.cloudinary.com/vdtry06/video/upload/2_btw2xc.jpg)](https://res.cloudinary.com/vdtry06/video/upload/2_btw2xc.mp4 "Admin Interface")
 
-# 1. Thiết lập cơ bản cho dự án Django
+## 1. Thiết lập cơ bản cho dự án Django
 /c/Users/ASUS/AppData/Roaming/Python/Python311/Scripts/django-admin.exe startproject Mobile_Store
 
-# Khởi tạo dự án và ứng dụng
+## Khởi tạo dự án và ứng dụng
 - django-admin startproject Mobile_Store
 - python -m django startapp 
 
-# Chạy các lệnh quản lý
+## Chạy các lệnh quản lý
 - py manage.py migrate  # Áp dụng các migration mặc định
 - py manage.py makemigrations  # Tạo migration từ các thay đổi trong models
 - py manage.py migrate  # Áp dụng các migration
@@ -21,14 +23,14 @@
 - py manage.py collectstatic  # Thu thập các file tĩnh
 - py manage.py createsuperuser  # Tạo tài khoản admin
 
-# Cài đặt thư viện
+## Cài đặt thư viện
 - pip install django
 - pip install pillow  # Hỗ trợ xử lý hình ảnh
 - pip install psycopg2  # Kết nối PostgreSQL
 - pip install imagehash opencv-python opencv-contrib-python  # Xử lý và trích xuất đặc trưng hình ảnh
 - pip install torch torchvision torchaudio ultralytics  # YOLO và mô hình học sâu
 
-# Quản lý với Git
+## Quản lý với Git
 - git status
 - git add .
 - git commit -m "Nội dung commit"
@@ -36,7 +38,7 @@
 - git push origin name_branch  # Đẩy branch lên Git
 - git push -u origin name_branch  # Đẩy branch mới chưa tồn tại
 
-# 2. Tìm kiếm bằng hình ảnh
+## 2. Tìm kiếm bằng hình ảnh
 ```
 1 chuyển đổi ảnh sang màu xám: giảm số lượng thông tin cần xử lý
 2. Trích xuất đặc trưng
@@ -86,7 +88,7 @@ Mặc dù trích xuất đặc trưng và tìm độ tương đồng giữa góc
 - cài database:
     pip install psycopg2
     pip freeze > requirements.txt
-# 3. Chức năng cơ bản của ứng dụng
+## 3. Chức năng cơ bản của ứng dụng
 - CRUD, Sort, Search items
 - CRUD account
 - CRUD status items
